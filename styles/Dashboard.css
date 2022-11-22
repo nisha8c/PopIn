@@ -4,3 +4,14 @@
   justify-content: center;
   flex-direction: column;
 }
+
+.inOut {
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  border: 1px solid #d8d8d8;
+}
+
+.inOut:active {
+  box-shadow: 0px 10px 10px #aaa inset, 5px 5px 5px #fff;
+}

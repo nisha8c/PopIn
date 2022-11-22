@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-around;
   color: white;
-  background-color: rgb(117, 201, 222);
+  background-color: #8ac0c4;
   position: absolute;
   bottom: 0;
 }
@@ -17,14 +17,15 @@
   color: #E0DBF2;
 }
 
-button {
+.icons {
   background-color: transparent;
   border: none;
-  font-size: 20px;
+  font-size: 30px;
 }
 
-button:hover {
+.icons:hover {
   font-weight: bold;
   font-style: italic;
   cursor: pointer;
+  color: #b8b8b8;
 }
