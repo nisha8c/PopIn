@@ -1,0 +1,27 @@
+.header-container {
+  display:flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+  min-height: 5rem;
+  background-color: #144576;
+  position: relative;
+}
+
+.header-logo {
+  text-align: center;
+}
+
+.header-settings__icon {
+  font-size: 4rem;
+  color: #fff;
+  background-color: #144576;
+  cursor: pointer;
+  transition: color 0.7s, box-shadow 0.7s;
+}
+
+.header-settings__icon:hover {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  color: #dd79ae
+}
