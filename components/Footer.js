@@ -6,9 +6,9 @@ const Footer = () => {
     <>
     <Script src="https://kit.fontawesome.com/3ea227b01c.js" crossorigin="anonymous"></Script>
       <div className='footer'>
-        <button><i className="fa-solid fa-calendar-days"></i></button>
-        <button><i className="fa-solid fa-house"></i></button>
-        <button><i className="fa-solid fa-gear"></i></button>
+        <button className="footer-button"><i className="fa-solid fa-calendar-days"></i></button>
+        <button className="footer-button"><i className="fa-solid fa-house"></i></button>
+        <button className="footer-button"><i className="fa-solid fa-gear"></i></button>
       </div>
     </>
   )

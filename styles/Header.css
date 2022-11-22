@@ -5,7 +5,7 @@
   flex-direction: row;
   width: 100%;
   min-height: 5rem;
-  background-color: #144576;
+  background-color: #75c9de;
   position: relative;
 }
 
@@ -16,7 +16,7 @@
 .header-settings__icon {
   font-size: 4rem;
   color: #fff;
-  background-color: #144576;
+  background-color: #75c9de;
   cursor: pointer;
   transition: color 0.7s, box-shadow 0.7s;
 }
