@@ -1,0 +1,14 @@
+.form-container {
+  margin: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 30vh;
+}
+
+.form-button {
+  margin: 0.25rem;
+  height: 3rem;
+  border-radius: 1.5rem;
+  font-size: 1.2rem;
+}

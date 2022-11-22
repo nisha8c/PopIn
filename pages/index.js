@@ -1,36 +1,35 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { Heading, Button, Grid } from '@chakra-ui/react'
 import { useSession, signIn, signOut } from 'next-auth/react'
+import Login from '../components/LogIn'
 
 const Home = () => {
 	const { data: session } = useSession()
-
 	const { push, asPath } = useRouter()
 
 	const handleSignOut = async () => {
 		const data = await signOut({ redirect: false, callbackUrl: '/' })
-
 		push(data.url)
 	}
-
-	const handleSignIn = () => push(`/auth/signin?callbackUrl=${asPath}`)
-
+  
 	return (
-		<Grid>
+		<>
 			{session ? ( 
 				<>
-					<Heading>Signed in as {session.user.email}</Heading>
-					<Button onClick={handleSignOut}>Sign out</Button>
+					<h1>Signed in as {session.user.email}</h1>
+					<button onClick={handleSignOut}>Sign out</button>
+          <button onClick={() => console.log(session)}>Click ME</button>
 				</>
 			) : (
 				<>
-					<Heading>You are not signed in</Heading>
-
-					<Button onClick={handleSignIn}>Sign in</Button>
+          <section className="main-title">
+            <h1>Welcome to the PopIn App</h1>
+            <h2>An attandance app for organized organizations</h2>
+          </section>
+					<Login />
 				</>
 			)}
-		</Grid>
+		</>
 	)
 }
 
