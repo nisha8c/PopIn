@@ -3,7 +3,8 @@ import '../styles/globals.css'
 import '../styles/myApp.css'
 import '../styles/Login.css'
 import '../styles/Header.css'
-
+import '../styles/Footer.css'
+import '../styles/Dashboard.css'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 	return (
