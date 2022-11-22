@@ -2,6 +2,8 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import Login from '../components/LogIn'
+import Footer from '../components/Footer'
+import Dashboard from '../components/Dashboard'
 
 const Home = () => {
 	const { data: session } = useSession()
@@ -16,9 +18,12 @@ const Home = () => {
 		<>
 			{session ? ( 
 				<>
+				<div className='index'>
 					<h1>Signed in as {session.user.email}</h1>
 					<button onClick={handleSignOut}>Sign out</button>
-          <button onClick={() => console.log(session)}>Click ME</button>
+					<Dashboard />
+				</div>
+					<Footer />
 				</>
 			) : (
 				<>
