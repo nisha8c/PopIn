@@ -3,12 +3,26 @@
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  width: 30vh;
+  max-width: 35vh;
 }
 
 .form-button {
-  margin: 0.25rem;
-  height: 3rem;
-  border-radius: 1.5rem;
+  border-color: rgb(170, 230, 205);
+  margin: 0.5rem;
+  height: 4rem;
+  border-radius: 2rem;
+  border-width: 0.3rem;
+  font-size: 1.2rem;
+  background-color: transparent;
+  display: inline-block;
+}
+
+.form-icon__service {
+  font-size: 2rem;
+  vertical-align: middle;
+}
+
+.form-button__innerText {
+  padding: 0.5rem;
   font-size: 1.2rem;
 }

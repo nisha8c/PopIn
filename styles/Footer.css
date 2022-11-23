@@ -4,9 +4,10 @@
   display: flex;
   justify-content: space-around;
   color: white;
-  background-color: #75c9de;
+  background-color: transparent;
   position: absolute;
   bottom: 0;
+  border: solid black 1px;
 }
 
 .footer a {

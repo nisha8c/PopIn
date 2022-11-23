@@ -1,6 +1,11 @@
-.dashboard{
+.dashboard {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  color: rgb(95, 95, 95);
+}
+
+.dashboard-callendar {
+  margin-top: -1rem;
 }

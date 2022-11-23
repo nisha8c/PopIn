@@ -4,7 +4,17 @@
   font-family: Dosis;
 }
 
-.main-title {
+.main-title__container {
   text-align: center;
 }
 
+.main-title {
+  font-size: 6rem;
+  color: #c5f8ad;
+  text-shadow: 3px 3px 5px rgba(0, 128, 0, 1);
+}
+
+.main-subtitle {
+  margin-top: -4rem;
+  color: rgb(63, 119, 37);
+}

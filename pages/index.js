@@ -21,19 +21,15 @@ const Home = () => {
 			{session ? ( 
 				<>
           <Header />
-				  <div className='index'>
-					  <h1>Signed in as {session.user.email}</h1>
-					  <button onClick={handleSignOut}>Sign out</button>
-					  <Dashboard />
-				  </div>
+					<button onClick={handleSignOut}>Sign out</button>
+					<Dashboard />
 					<Footer />
 				</>
 			) : (
 				<>
-          <section className="main-title">
-            <h1>Welcome to the PopIn App</h1>
-            <p>Are you a developer?</p>
-            <p>Please log in here:</p>
+          <section className="main-title__container">
+            <h1 className="main-title">PopIn</h1>
+            <h2 className="main-subtitle">mark your attandance</h2>
           </section>
 					<Login />
 				</>
