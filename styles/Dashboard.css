@@ -9,3 +9,14 @@
 .dashboard-callendar {
   margin-top: -1rem;
 }
+
+.inOut {
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  border: 1px solid #d8d8d8;
+}
+
+.inOut:active {
+  box-shadow: 3px 3px 3px #aaa inset, 3px 3px 3px #aaa;
+}
