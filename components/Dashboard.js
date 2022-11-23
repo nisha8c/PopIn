@@ -19,11 +19,11 @@ const Dashboard = () => {
   const current = new Date();
 
   const weekday = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  let day = weekday[current.getDay()];
+  const day = weekday[current.getDay()];
   const date = `${current.getDate()}`;
 
-  const month = ['January','February','March','April','May','June','July','August','September','October','Nov','December'];
-  let monthName = month[current.getMonth()];
+  const month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const monthName = month[current.getMonth()];
 
   const [attendanceButton, setAttendanceButton] = useState(popin);
 
@@ -31,6 +31,7 @@ const Dashboard = () => {
     let value = attendanceButton;
 
     if (value === popin) {
+      console.log(currentclear.toISOString().split('T')[0])
       setAttendanceButton(popout);
     } else {
       setAttendanceButton(popin);
