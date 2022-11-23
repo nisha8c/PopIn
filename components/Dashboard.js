@@ -31,7 +31,8 @@ const Dashboard = () => {
     let value = attendanceButton;
 
     if (value === popin) {
-      console.log(currentclear.toISOString().split('T')[0])
+      console.log(current.toISOString().split('T')[0])
+      console.log(session.user)
       setAttendanceButton(popout);
     } else {
       setAttendanceButton(popin);
