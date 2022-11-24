@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <>
       <section className="header-container">
-        Welcome, {session.user.name}!
+        Welcome, {session?.user?.name}!
       </section>
     </>
   )
