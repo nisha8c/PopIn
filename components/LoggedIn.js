@@ -3,11 +3,10 @@ import Header from './Header'
 import Footer from './Footer'
 import Dashboard from './Dashboard'
 
-const LoggedIn = ({handleSignOut}) => {
+const LoggedIn = () => {
   return (
     <div>
       <Header />
-      <button onClick={handleSignOut}>Sign out</button>
       <Dashboard />
 			<Footer />
     </div>
