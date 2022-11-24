@@ -1,10 +1,8 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { useSession, signIn, signOut } from 'next-auth/react'
-import Login from '../components/LogIn'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import Dashboard from '../components/Dashboard'
+import LoginPage from '../components/LogInPage'
+import LoggedIn from '../components/LoggedIn'
 
 const Home = () => {
 	const { data: session } = useSession()
@@ -17,22 +15,7 @@ const Home = () => {
 
 	return (
 		<>
-			{session ? ( 
-				<>
-          <Header />
-					<button onClick={handleSignOut}>Sign out</button>
-					<Dashboard />
-					<Footer />
-				</>
-			) : (
-				<>
-          <section className="main-title__container">
-            <h1 className="main-title">PopIn</h1>
-            <h2 className="main-subtitle">mark your attandance</h2>
-          </section>
-					<Login />
-				</>
-			)}
+			{session ? ( <LoggedIn handleSignOut={handleSignOut}/> ) : ( <LoginPage /> )}
 		</>
 	)
 }

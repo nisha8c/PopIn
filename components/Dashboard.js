@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { DateTime } from 'luxon';
 import { useSession } from "next-auth/react"
-import popin from '../public/popin.png';
-import popout from '../public/popout.png';
+import popin from '../public/LGpopin.png';
+import popout from '../public/LGpopout.png';
 
 const Dashboard = () => {
   const { data: session } = useSession()
