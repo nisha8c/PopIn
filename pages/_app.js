@@ -5,6 +5,7 @@ import '../styles/Login.css'
 import '../styles/Header.css'
 import '../styles/Footer.css'
 import '../styles/Dashboard.css'
+import '../styles/Settings.css'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 	return (

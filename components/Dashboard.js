@@ -12,23 +12,21 @@ const Dashboard = () => {
   const [entryid, setEntryId] = useState(null)
   const [userId, setUserId] = useState(null)
 
-  useState(() => {
-    const storedButtonImg = JSON.parse(localStorage.getItem('attendanceButton'));
-    if (storedButtonImg) setAttendanceButton(storedButtonImg);
-  });
+  // useState(() => {
+  //   const storedButtonImg = JSON.parse(localStorage.getItem('attendanceButton'));
+  //   if (storedButtonImg) setAttendanceButton(storedButtonImg);
+  // });
 
-  useEffect(() => {
-    localStorage.setItem('attendanceButton', JSON.stringify(attendanceButton));
-  }, [attendanceButton]);
+  // useEffect(() => {
+  //   localStorage.setItem('attendanceButton', JSON.stringify(attendanceButton));
+  // }, [attendanceButton]);
 
-
-  useEffect(() => {
-    const interval = setInterval(() => setTime(DateTime.now()), 1000);
-    return () => clearInterval(interval);
-  }, [time]);
+  // useEffect(() => {
+  //   const interval = setInterval(() => setTime(DateTime.now()), 1000);
+  //   return () => clearInterval(interval);
+  // }, [time]);
 
   const current = new Date();
-  const number = 9;
 
   const weekday = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const day = weekday[current.getDay()];
@@ -50,6 +48,7 @@ const Dashboard = () => {
         .then(newEntry => {
           setUserId(() => newEntry.entry.userId)
           setEntryId(() => newEntry.entry._id)
+          console.log(newEntry)
         });
 
       setAttendanceButton(popout);
@@ -57,12 +56,16 @@ const Dashboard = () => {
       fetch(`api/entry/${entryid}`, {
         method: 'PATCH',
         body: JSON.stringify({
+          entryid: entryid,
           endTime: current.toISOString()
         }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
       })
+        .then(response => response.json())
+        .then(updatedEntry => console.log(updatedEntry));
+
       setAttendanceButton(popin);
     }
   };

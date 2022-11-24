@@ -13,12 +13,12 @@
 }
 
 .form-button {
-  border-color: rgb(170, 230, 205);
-  margin: 0.5rem;
+  border-color: #aae6cd;
+  margin: 1rem;
   height: 4rem;
   border-radius: 2rem;
   border-width: 0.3rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   background-color: transparent;
   display: inline-block;
   border: 1px solid #d8d8d8;
@@ -35,5 +35,5 @@
 
 .form-button__innerText {
   padding: 0.5rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }

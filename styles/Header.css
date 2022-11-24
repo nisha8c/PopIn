@@ -5,5 +5,5 @@
   flex-direction: row;
   width: 100%;
   min-height: 5rem;
-  border-bottom: solid 1px black;
+  font-size: 1.5rem;
 }

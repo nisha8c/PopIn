@@ -3,7 +3,6 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  color: rgb(95, 95, 95);
 }
 
 .dashboard-calendar {
@@ -12,7 +11,7 @@
 
 .inOut {
   border-radius: 50%;
-  background: #ffffff;
+  background: transparent;
   border: none;
   border: 1px solid #d8d8d8;
 }
