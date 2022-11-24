@@ -64,7 +64,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <h1 className="dashboard-clock">{time.setZone('Europe/Stockholm').toLocaleString(DateTime.TIME_WITH_SECONDS)}</h1>
-      <h3 className="dashboard-callendar">{day}, {monthName} {date}</h3>
+      <h3 className="dashboard-calendar">{day}, {monthName} {date}</h3>
 
       <button className='inOut' onClick={changeAttendanceButton}>
       <Image
