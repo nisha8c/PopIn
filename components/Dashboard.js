@@ -12,6 +12,16 @@ const Dashboard = () => {
   const [entryid, setEntryId] = useState(null)
   const [userId, setUserId] = useState(null)
 
+  useState(() => {
+    const storedButtonImg = JSON.parse(localStorage.getItem('attendanceButton'));
+    if (storedButtonImg) setAttendanceButton(storedButtonImg);
+  });
+
+  useEffect(() => {
+    localStorage.setItem('attendanceButton', JSON.stringify(attendanceButton));
+  }, [attendanceButton]);
+
+
   useEffect(() => {
     const interval = setInterval(() => setTime(DateTime.now()), 1000);
     return () => clearInterval(interval);
