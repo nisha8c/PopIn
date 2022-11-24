@@ -5,11 +5,10 @@ import { useSession } from "next-auth/react"
 import popin from '../public/popin.png';
 import popout from '../public/popout.png';
 
-const determineUser = (session) => session.user.role ? 'Instructor' : 'Student'
-
 const Dashboard = () => {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const [time, setTime] = useState(DateTime.now());
+  const [attendanceButton, setAttendanceButton] = useState(popin);
 
   useEffect(() => {
     const interval = setInterval(() => setTime(DateTime.now()), 1000);
@@ -25,19 +24,27 @@ const Dashboard = () => {
   const month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const monthName = month[current.getMonth()];
 
-  const [attendanceButton, setAttendanceButton] = useState(popin);
-
   const changeAttendanceButton = () => {
-    let value = attendanceButton;
+    if (attendanceButton === popin) {
+      fetch('api/entry', {
+        method: 'POST',
+        body: JSON.stringify({
+          punchIn: current.toISOString().split('T')[0],
+          userId: session.user.id
+        }),
+      })
+        .then(response => response.json())
+        .then(newEntry => console.log(newEntry));
 
-    if (value === popin) {
-      console.log(current.toISOString().split('T')[0])
-      console.log(session.user)
       setAttendanceButton(popout);
     } else {
       setAttendanceButton(popin);
     }
   };
+
+  const getButton = () => {
+
+  }
 
   return (
     <div className="dashboard">

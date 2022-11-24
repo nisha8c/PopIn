@@ -1,25 +1,29 @@
-const { MongoClient, ObjectId } = require('mongodb');
-const url = process.env.MONGODB_URI;
-const dataBaseName = 'PopIn';
+import mongoose from 'mongoose'
+import { ObjectId } from 'mongodb';
 
+const { Schema, model } = mongoose;
+const entrySchema = new Schema({
+  id: ObjectId,
+  date: Date,
+});
+
+const Entry = model('Entry', entrySchema);
 
 export default async function handler(req, res) {
-  const client = await MongoClient.connect(url, { useNewUrlParser: true });
-  const db = client.db(dataBaseName);
-  const entriesCollection = db.collection('entries');
-
+  mongoose.connect(process.env.MONGODB_URI)
+  
   switch(req.method) {
     case 'POST':
-      const newEntry = req.body;
-      const savedEntry = await entriesCollection.insertOne({
-        timeIn: newEntry.timeIn,
-        userId: ObjectId(newEntry.userId)
-      });
-      return res.status(200).json({entry: savedEntry});
+      const newEntry = JSON.parse(req.body)
+      const entry = await Entry.create({
+        id: newEntry.userId,
+        date: newEntry.punchIn,
+      })
+      console.log(entry)
+      return res.status(200).json({entry: entry});
       break;
     case 'GET':
-      const entries = await entriesCollection.find({});
-      console.log(req)
       return res.status(200).json({entries, user: req.session, 'test': '1'});
+      break;
   }
 }
