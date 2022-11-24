@@ -27,13 +27,13 @@ export default function Settings() {
         <div className='theme-changer'>
 
           <Link href="/Profile">
-            <button>View Profile</button>
+            <button className="settings-button">View Profile</button>
           </Link>
 
-          <button onClick={setDarkTheme}>
+          <button className="settings-button" onClick={setDarkTheme}>
             Change Theme
           </button>
-          <button onClick={handleSignOut}>Sign out</button>
+          <button className="settings-button" onClick={handleSignOut}>Sign out</button>
         </div>
       </section>
       <Footer />

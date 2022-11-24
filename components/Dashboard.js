@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { DateTime } from 'luxon';
 import { useSession } from "next-auth/react"
-import popin from '../public/LGpopin.png';
-import popout from '../public/LGpopout.png';
+import popin from '../public/FULLin.png';
+import popout from '../public/FULLout.png';
 
 const Dashboard = () => {
   const { data: session } = useSession()
@@ -17,14 +17,14 @@ const Dashboard = () => {
   //   if (storedButtonImg) setAttendanceButton(storedButtonImg);
   // });
 
-  // useEffect(() => {
-  //   localStorage.setItem('attendanceButton', JSON.stringify(attendanceButton));
-  // }, [attendanceButton]);
+  useEffect(() => {
+    localStorage.setItem('attendanceButton', JSON.stringify(attendanceButton));
+  }, [attendanceButton]);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => setTime(DateTime.now()), 1000);
-  //   return () => clearInterval(interval);
-  // }, [time]);
+  useEffect(() => {
+    const interval = setInterval(() => setTime(DateTime.now()), 1000);
+    return () => clearInterval(interval);
+  }, [time]);
 
   const current = new Date();
 
@@ -83,8 +83,8 @@ const Dashboard = () => {
       <Image
         src={attendanceButton}
         alt="toggle button"
-        width={160}
-        height={160}
+        width={180}
+        height={180}
       />
       </button>
     </div>

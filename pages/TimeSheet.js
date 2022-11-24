@@ -7,6 +7,7 @@ export default function TimeSheet() {
     <>
       <Header />
       <section className="timesheet-container">
+      <h2>Timesheet</h2>
         This is Timesheet....
       </section>
       <Footer />

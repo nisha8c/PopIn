@@ -2,7 +2,7 @@ import React from 'react'
 import { signIn } from 'next-auth/react'
 import { BsGithub, BsGoogle } from 'react-icons/bs'
 import Image from 'next/image'
-import logo from '../public/LGlogo.png';
+import logo from '../public/FULLlogo.png';
 
 
 export default function SignIn() {
@@ -28,8 +28,8 @@ export default function SignIn() {
       <Image
         src={logo}
         alt="logo"
-        width={220}
-        height={220}
+        width={200}
+        height={200}
         priority
       />
       <h3>mark your attendance</h3>

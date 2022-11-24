@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  color: rgb(0, 0, 0);
 }
 
 .dashboard-calendar {
@@ -11,11 +12,15 @@
 
 .inOut {
   border-radius: 50%;
-  background: transparent;
-  border: none;
-  border: 1px solid #d8d8d8;
+  background: white;
+  border: 0px solid #d8d8d8;
+  /* box-shadow: 3px 3px 5px #595959; */
 }
 
 .inOut:active {
-  box-shadow: 3px 3px 3px #aaa inset, 3px 3px 3px #aaa;
+  transform: scale(0.9);
+}
+
+.inOut:hover {
+  cursor: pointer;
 }

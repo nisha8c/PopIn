@@ -4,6 +4,9 @@
   justify-content: space-around;
   flex-direction: row;
   width: 100%;
-  min-height: 5rem;
+  height: 10rem;
   font-size: 1.5rem;
+  background-color: #265584;
+  color: white;
+  border: none;
 }

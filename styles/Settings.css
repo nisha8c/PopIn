@@ -1,11 +1,29 @@
-button {
+.settings-container {
+  margin-left: 2rem;
+}
+
+.settings-button {
+  display: flex;
+  flex-direction: column;
   border-color: #aae6cd;
   margin: 1rem;
-  height: 4rem;
-  border-radius: 2rem;
+  border-radius: 1rem;
   border-width: 0.3rem;
-  font-size: 1.5rem;
+  font-size: 1rem;
   background-color: transparent;
-  display: inline-block;
-  border: 1px solid #d8d8d8;
+  border: none;
+}
+
+.settings-button:hover {
+  cursor: pointer;
+  /* text-shadow: 3px 3px 5px #595959; */
+}
+
+a {
+  text-decoration: none;
+}
+
+@media only screen and (min-width: 768px) {
+  /* For tablets: */
+
 }

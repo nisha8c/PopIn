@@ -3,15 +3,16 @@
   height: 100px;
   display: flex;
   justify-content: space-evenly;
-  color: white;
+  align-items: center;
   position: absolute;
   bottom: 0;
+  background-color: #f2d274;
 }
 
 .footer-button {
   background-color: transparent;
-  color: #c5f8ad;
-  text-shadow: 3px 3px 5px #008000;
+  color:#e6995c;
+  /* text-shadow: 3px 3px 5px #595959; */
   border: none;
   font-size: 2rem;
 }
@@ -20,9 +21,9 @@
   font-weight: bold;
   font-style: italic;
   cursor: pointer;
-  color: #000000;
-  text-shadow: 3px 3px 5px #008000;
-  transform: scale(0.8);
+  color: #f0ca56;
+  /* text-shadow: 3px 3px 5px #595959; */
+  transform: scale(0.9);
 }
 
 @media only screen and (min-width: 768px) {
@@ -31,8 +32,8 @@
     font-weight: bold;
     font-style: italic;
     cursor: pointer;
-    color: #000000;
-    text-shadow: 3px 3px 5px #008000;
+    color: #f0ca56;
+    /* text-shadow: 3px 3px 5px #595959; */
   }
 }
 
