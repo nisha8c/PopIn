@@ -10,6 +10,16 @@ const Dashboard = () => {
   const [time, setTime] = useState(DateTime.now());
   const [attendanceButton, setAttendanceButton] = useState(popin);
 
+  useState(() => {
+    const storedButtonImg = JSON.parse(localStorage.getItem('attendanceButton'));
+    if (storedButtonImg) setAttendanceButton(storedButtonImg);
+  });
+
+  useEffect(() => {
+    localStorage.setItem('attendanceButton', JSON.stringify(attendanceButton));
+  }, [attendanceButton]);
+
+
   useEffect(() => {
     const interval = setInterval(() => setTime(DateTime.now()), 1000);
     return () => clearInterval(interval);
