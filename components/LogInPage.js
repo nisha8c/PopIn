@@ -1,6 +1,8 @@
 import React from 'react'
 import { signIn } from 'next-auth/react'
 import { BsGithub, BsGoogle } from 'react-icons/bs'
+import Image from 'next/image'
+import logo from '../public/LGlogo.png';
 
 
 export default function SignIn() {
@@ -22,6 +24,15 @@ export default function SignIn() {
 
   return (
     <>
+    <section className="login-page">
+      <Image
+        src={logo}
+        alt="logo"
+        width={220}
+        height={220}
+        priority
+      />
+      <h3>mark your attendance</h3>
       <form className="form-container" onSubmit={handleSubmit}>
         {
           providers.map(({name, Icon, displayName}) => (
@@ -32,6 +43,7 @@ export default function SignIn() {
           ))
         }
       </form>
+    </section>
     </>
   )
 }

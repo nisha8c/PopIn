@@ -4,29 +4,41 @@
   display: flex;
   justify-content: space-around;
   color: white;
-  background-color: transparent;
   position: absolute;
   bottom: 0;
-  border: solid black 1px;
-}
-
-.footer a {
-  color: white;
-}
-
-.footer a:hover {
-  color: #E0DBF2;
 }
 
 .footer-button {
   background-color: transparent;
+  color: #c5f8ad;
+  text-shadow: 3px 3px 5px #008000;
   border: none;
-  font-size: 30px;
+  font-size: 2em;
 }
 
-.footer-button:hover {
+.footer-button:active {
   font-weight: bold;
   font-style: italic;
   cursor: pointer;
-  color: #ffffff;
+  color: #000000;
+  text-shadow: 3px 3px 5px #008000;
+  transform: scale(0.8);
+}
+
+@media only screen and (min-width: 768px) {
+  /* For tablets: */
+  .footer-button:hover {
+    font-weight: bold;
+    font-style: italic;
+    cursor: pointer;
+    color: #000000;
+    text-shadow: 3px 3px 5px #008000;
+  }
+  .footer {
+    width: 50%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  /* For desktop: */
 }
