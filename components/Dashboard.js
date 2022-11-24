@@ -9,6 +9,8 @@ const Dashboard = () => {
   const { data: session } = useSession()
   const [time, setTime] = useState(DateTime.now());
   const [attendanceButton, setAttendanceButton] = useState(popin);
+  const [entryid, setEntryId] = useState(null)
+  const [userId, setUserId] = useState(null)
 
   useEffect(() => {
     const interval = setInterval(() => setTime(DateTime.now()), 1000);
@@ -16,6 +18,7 @@ const Dashboard = () => {
   }, [time]);
 
   const current = new Date();
+  const number = 9;
 
   const weekday = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const day = weekday[current.getDay()];
@@ -29,15 +32,27 @@ const Dashboard = () => {
       fetch('api/entry', {
         method: 'POST',
         body: JSON.stringify({
-          punchIn: current.toISOString().split('T')[0],
+          startTime: current.toISOString(),
           userId: session.user.id
         }),
       })
         .then(response => response.json())
-        .then(newEntry => console.log(newEntry));
+        .then(newEntry => {
+          setUserId(() => newEntry.entry.userId)
+          setEntryId(() => newEntry.entry._id)
+        });
 
       setAttendanceButton(popout);
     } else {
+      fetch(`api/entry/${entryid}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          endTime: current.toISOString()
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      })
       setAttendanceButton(popin);
     }
   };
