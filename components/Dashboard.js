@@ -17,9 +17,9 @@ const Dashboard = () => {
   //   if (storedButtonImg) setAttendanceButton(storedButtonImg);
   // });
 
-  useEffect(() => {
-    localStorage.setItem('attendanceButton', JSON.stringify(attendanceButton));
-  }, [attendanceButton]);
+  // useEffect(() => {
+  //   localStorage.setItem('attendanceButton', JSON.stringify(attendanceButton));
+  // }, [attendanceButton]);
 
   useEffect(() => {
     const interval = setInterval(() => setTime(DateTime.now()), 1000);
@@ -37,7 +37,7 @@ const Dashboard = () => {
 
   const changeAttendanceButton = () => {
     if (attendanceButton === popin) {
-      fetch('api/entry', {
+      fetch('api/entries', {
         method: 'POST',
         body: JSON.stringify({
           startTime: current.toISOString(),
@@ -53,7 +53,7 @@ const Dashboard = () => {
 
       setAttendanceButton(popout);
     } else {
-      fetch(`api/entry/${entryid}`, {
+      fetch(`api/entries/${entryid}`, {
         method: 'PATCH',
         body: JSON.stringify({
           entryid: entryid,

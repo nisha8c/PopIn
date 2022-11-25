@@ -6,10 +6,13 @@ export default async function handler(req, res) {
   
   switch(req.method) {
     case 'GET':
-      return res.status(200).json({entries, user: req.session, 'test': '1'});
+      // console.log(req);
+      // const allUsersEntries = await Entry.where('userId').equals()
+      return res.status(200).json({allEntries: req.params});
       break;
     case 'POST':
       const newEntry = JSON.parse(req.body)
+      //  TODO check if there is already an entry for that day. It true return response and not post anything to MongoDB
       const entry = await Entry.create({
         userId: newEntry.userId,
         startTime: newEntry.startTime,

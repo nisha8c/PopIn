@@ -15,7 +15,7 @@ export default function Settings() {
 
   const setDarkTheme = () => {
     console.log('Setting dark theme');
-    document.body.style.backgroundColor = '#868686';
+    document.body.style.backgroundColor = '#265584';
     document.body.style.color = 'white';
   };
   
@@ -33,6 +33,9 @@ export default function Settings() {
           <button className="settings-button" onClick={setDarkTheme}>
             Change Theme
           </button>
+          <Link href="/About">
+            <button className="settings-button">About Us</button>
+          </Link>
           <button className="settings-button" onClick={handleSignOut}>Sign out</button>
         </div>
       </section>
