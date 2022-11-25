@@ -9,4 +9,6 @@
   background-color: #265584;
   color: white;
   border: none;
+  position: sticky;
+  top: 0;
 }

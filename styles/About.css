@@ -7,6 +7,36 @@
   font-size: 1rem;
 }
 
+.contactinfo {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+li {
+  list-style: none;
+  margin: 1rem;
+}
+
+/* unvisited link */
+a:link {
+  color: rgb(0, 0, 0);
+}
+
+/* visited link */
+a:visited {
+  color: rgb(0, 0, 0);
+}
+
+/* mouse over link */
+a:hover {
+  color: rgb(0, 0, 0);
+}
+
+/* selected link */
+a:active {
+  color: rgb(0, 0, 0);
+}
+
 @media only screen and (min-width: 768px) {
   /* For tablets: */
 
