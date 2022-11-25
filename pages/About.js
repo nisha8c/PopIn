@@ -14,6 +14,7 @@ const About = () => {
         For three months, we went through the &lt;/salt&gt; Fullstack Javascript bootcamp.
         This is our final project, and the idea for the app was inspired by our daily attendance marking during the bootcamp.</p>
     </section>
+    <section></section>section classn
     <Footer />
     </>
   )

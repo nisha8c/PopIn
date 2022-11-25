@@ -12,7 +12,6 @@ export default async function handler(req, res) {
     case 'PATCH':
       console.log(req.body);
       const entry = await Entry.findOneAndUpdate({ _id: req.body.entryid }, { endTime: req.body.endTime, finish: true});
-      // TODO update in mongodb
       return res.status(201).json({entry: entry})
       break;
   }

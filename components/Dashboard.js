@@ -26,6 +26,8 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, [time]);
 
+  const fixedTime = DateTime.local()
+
   const current = new Date();
 
   const weekday = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -40,7 +42,7 @@ const Dashboard = () => {
       fetch('api/entries', {
         method: 'POST',
         body: JSON.stringify({
-          startTime: current.toISOString(),
+          startTime: `${fixedTime}`,
           userId: session.user.id
         }),
       })
@@ -57,7 +59,7 @@ const Dashboard = () => {
         method: 'PATCH',
         body: JSON.stringify({
           entryid: entryid,
-          endTime: current.toISOString()
+          endTime: `${fixedTime}`
         }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',

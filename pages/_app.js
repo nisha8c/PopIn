@@ -7,6 +7,7 @@ import '../styles/Footer.css'
 import '../styles/Dashboard.css'
 import '../styles/Settings.css'
 import '../styles/Timesheet.css'
+import '../styles/About.css'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 	return (
