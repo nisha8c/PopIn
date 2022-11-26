@@ -13,13 +13,25 @@ export default function TimeSheet() {
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    const userData = userEmail + date;
-    fetch(`api/entries/${userData}`, { 
-      method: 'GET',
-    })
-      .then(response => response.json())
-      .then(allEntries => setAllEntries(allEntries.allTimeEntries))
-  })
+    const formatData = (input) => {
+      if (input > '9') {
+        return input;
+      } else return `0${input}`;
+    };
+    console.log('Get data for -', date);
+    const formatedDate = date.getFullYear() + '-' + formatData(date.getMonth()) + '-' + formatData(date.getDate());
+    const userData = userEmail + '^' + formatedDate;
+
+    const getData = async () => {
+      await fetch(`api/entries/${userData}`, { method: 'GET' })
+        .then(response => response.json())
+        .then(allEntries => {
+          console.log('allEntries', allEntries.allEntries)
+          setAllEntries(allEntries.allEntries)
+         })
+    }
+    getData();
+  }, [date]);
   
   return (
     <>
@@ -40,10 +52,10 @@ export default function TimeSheet() {
       </section>
       <section className="timesheet-table">
         <ul className='time-list'>
-          { allEntries.map((entry) => {
+          { allEntries.map(entry => {
             return(
               <li className='time-card' key={entry._id}>
-                {entry.startTime}
+                {entry.startTime} 
                 {entry.endTime}
                 {entry.duration}
               </li>
