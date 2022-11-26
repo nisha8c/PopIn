@@ -9,8 +9,8 @@ const Dashboard = () => {
   const { data: session } = useSession()
   const [time, setTime] = useState(DateTime.now());
   const [attendanceButton, setAttendanceButton] = useState(popin);
+  const [documentid, setDocumentId] = useState(null)
   const [entryid, setEntryId] = useState(null)
-  const [userId, setUserId] = useState(null)
 
   // useState(() => {
   //   const storedButtonImg = JSON.parse(localStorage.getItem('attendanceButton'));
@@ -26,10 +26,15 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, [time]);
 
-  const fixedTime = DateTime.local()
-
   const current = new Date();
-
+  
+  const formatData = (input) => {
+    if (input > '9') {
+      return input;
+    } else return `0${input}`;
+  };
+  const currentDate = current.getFullYear() + '-' + formatData(current.getMonth()) + '-' + formatData(current.getDate());
+ 
   const weekday = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const day = weekday[current.getDay()];
   const date = `${current.getDate()}`;
@@ -42,46 +47,44 @@ const Dashboard = () => {
       fetch('api/entries', {
         method: 'POST',
         body: JSON.stringify({
-          startTime: `${fixedTime}`,
-          userId: session.user.id
+          email: session.user.email,
+          timesheetDate: `${currentDate}`,
+          startTime: `${current}`
         }),
       })
         .then(response => response.json())
         .then(newEntry => {
-          setUserId(() => newEntry.entry.userId)
-          setEntryId(() => newEntry.entry._id)
-          console.log(newEntry)
+          setDocumentId(() => newEntry.documentId)
+          setEntryId(() => newEntry.entryId)
         });
 
       setAttendanceButton(popout);
     } else {
+      console.log('out time for entry: ', entryid)
       fetch(`api/entries/${entryid}`, {
         method: 'PATCH',
         body: JSON.stringify({
+          documentid: documentid,
           entryid: entryid,
-          endTime: `${fixedTime}`
+          endTime: `${current}`
         }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
       })
         .then(response => response.json())
-        .then(updatedEntry => console.log(updatedEntry));
+        .then(updatedEntry => console.log('updatedEntry: ', updatedEntry));
 
       setAttendanceButton(popin);
     }
   };
-
-  const getButton = () => {
-
-  }
 
   return (
     <div className="dashboard">
       <h1 className="dashboard-clock">{time.setZone('Europe/Stockholm').toLocaleString(DateTime.TIME_WITH_SECONDS)}</h1>
       <h3 className="dashboard-calendar">{day}, {monthName} {date}</h3>
 
-      <button className='inOut' onClick={changeAttendanceButton}>
+      <button className='in-out' onClick={changeAttendanceButton}>
       <Image
         src={attendanceButton}
         alt="toggle button"

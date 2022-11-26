@@ -10,17 +10,17 @@
   margin-top: -1rem;
 }
 
-.inOut {
+.in-out {
   border-radius: 50%;
   background: white;
   border: 0px solid #d8d8d8;
   /* box-shadow: 3px 3px 5px #595959; */
 }
 
-.inOut:active {
+.in-out:active {
   transform: scale(0.9);
 }
 
-.inOut:hover {
+.in-out:hover {
   cursor: pointer;
 }
