@@ -6,6 +6,7 @@ import popin from '../public/FULLin.png';
 import popout from '../public/FULLout.png';
 const moment = require('moment');
 const momentDurationFormatSetup = require('moment-duration-format');
+import Link from 'next/link';
 
 const Dashboard = () => {
   const { data: session } = useSession()
@@ -90,6 +91,12 @@ const Dashboard = () => {
         height={180}
       />
       </button>
+
+      {session?.user?.role &&
+        <Link href="/StudentsAttendance">
+          <button className='view-dev-Info'>View Students Attendence</button>
+        </Link>
+      }
     </div>
   )
 }
