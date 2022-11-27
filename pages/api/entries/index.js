@@ -22,11 +22,11 @@ export default async function handler(req, res) {
         const createEntry = await Entry.create({
           email: newEntry.email,
           timesheetDate: newEntry.timesheetDate,
-          totalTime: '00:00:00',
+          totalTime: 0,
           entries: [{
             startTime: newEntry.startTime,
             endTime: null,
-            duration: null,
+            duration: 0,
           }]
         })
 
@@ -43,16 +43,17 @@ export default async function handler(req, res) {
              entries:{
               startTime: newEntry.startTime,
               endTime: null,
-              duration: null,
+              duration: 0,
              }
             }
-         })
-        
-         const updatedEntry = await Entry.findOne({ $and:
+          }
+         )
+
+        const updatedEntry = await Entry.findOne({ $and:
           [{ email: `${newEntry.email}`},
            { timesheetDate : `${newEntry.timesheetDate}`}
           ]})
-  
+        
         return res
           .status(201)
           .json({

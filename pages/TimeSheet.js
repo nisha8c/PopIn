@@ -11,7 +11,7 @@ export default function TimeSheet() {
   const userName = session?.user?.name;
   const [allEntries, setAllEntries] = useState([])
   const [date, setDate] = useState(new Date());
-  const [dataFound, setDataFound] = useState(false);
+  const [totalTime, setTotalTime] = useState(0);
 
   useEffect(() => {
     const formatData = (input) => {
@@ -24,14 +24,15 @@ export default function TimeSheet() {
     
     const getData = async () => {
       await fetch(`api/entries/${userData}`, { method: 'GET' })
-        .then(response => {
-          response.status===200? setDataFound(true):setDataFound(false);
-          response.json();
-        })
-        .then(dataFound===true? allEntries => setAllEntries(allEntries.allEntries):setAllEntries([]))
-        }
+        .then(response => response.json())
+        .then(timesheetData => {
+           setAllEntries(timesheetData.allEntries)
+           setTotalTime(timesheetData.totalTime)
+          }
+        )
+      }
     getData();
-  }, [date]);
+  }, [date, userEmail, totalTime]);
   
   return (
     <>
@@ -49,14 +50,38 @@ export default function TimeSheet() {
           selected={date}
           onChange={date => setDate(date)}
         />
+        <div className='total-time'>
+           Total Time  : {totalTime}
+        </div>
       </section>
       <section className="timesheet-table">
-        <ul className='time-list'>
+        <ul className='start-time-list'>
+          Start Time
           { allEntries.map(entry => {
             return(
               <li className='time-card' key={entry._id}>
-                {entry.startTime} 
+                {entry.startTime}
+              </li>
+             )    
+            })
+          }
+        </ul>
+        <ul className='end-time-list'>
+          End Time
+          { allEntries.map(entry => {
+            return(
+              <li className='time-card' key={entry._id}>
                 {entry.endTime}
+              </li>
+             )    
+            })
+          }
+        </ul>
+        <ul className='duration-list'>
+          Duration
+          { allEntries.map(entry => {
+            return(
+              <li className='time-card' key={entry._id}>
                 {entry.duration}
               </li>
              )    

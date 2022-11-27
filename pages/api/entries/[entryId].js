@@ -9,32 +9,37 @@ export default async function handler(req, res) {
       const userEmail = userData.split('%5E')[0];
       const date = userData.split('%5E')[1];
       
-      const allTimeEntries = await Entry.find({ $and:
+      const allTimeEntries = await Entry.findOne({ $and:
         [{ email: userEmail },
          { timesheetDate: date }]
       })
 
-      if ( allTimeEntries.length === 0) {
-        return res
-          .status(404)
-          .json({message: 'No entries found for this date' })
-      } else {
+      // if ( allTimeEntries.length === 0) {
+      //  return res
+      //    .status(404)
+      //    .json({message: 'No entries found for this date' })
+      //} else {
           return res
             .status(200)
-            .json({allEntries: allTimeEntries[0].entries})
-      }
+            .json({allEntries: allTimeEntries.entries, totalTime: allTimeEntries.totalTime})
+      //}
       break;
     case 'PATCH':
       const entry = await Entry.findOneAndUpdate(
         { _id: req.body.documentid, 'entries._id': req.body.entryid },
         { 'entries.$.endTime': req.body.endTime,
-          'entries.$.duration': { $subtract: [ `{entries.$.endTime}`, `{entries.$.startTime}` ] }
-        }
+          'entries.$.duration': 1 }
       );
-      console.log('after end time :',entry); 
+     
+      const document = await Entry.findOneAndUpdate(
+        { _id : req.body.documentid },
+        [ { $set: { 'totalTime': { $sum: '$entries.duration' } } } ],
+        { returnNewDocument: true }
+      );
+     
       return res
         .status(201)
-        .json({entry: entry})
+        .json({entry: document})
       break;
   }
 }

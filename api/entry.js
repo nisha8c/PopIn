@@ -5,11 +5,11 @@ const { Schema, model } = mongoose;
 const entrySchema = new Schema({
    email: String,
    timesheetDate: String,
-   totalTime: String,
+   totalTime: Number,
    entries: [{ 
       startTime: Date,
       endTime: Date,
-      duration: Date,
+      duration: Number,
    }]
 });
 
