@@ -35,18 +35,28 @@ export default function StudentsAttendance() {
     <>
       <Header />
       <section className="timesheet-container">
-      <h2>Timesheet</h2>
-        
-        <div className='info-container'>
-           Name  : {userName}
-           Email : {userEmail}
-        </div>
-        Filter By Date:
-        <DatePicker
-          value={date}
-          selected={date}
-          onChange={date => setDate(date)}
-        />
+        <h2>View Students Attendance</h2>
+      
+        <section className='filter-container'>
+
+          Filter by Student-Email:    
+          <select>
+            <option>1</option>
+            <option>2</option>
+          </select>
+          <br></br><br></br>
+
+          Filter By Date:
+          <DatePicker
+            value={date}
+            selected={date}
+            onChange={date => setDate(date)}
+          />
+
+          <button>Delete Entire Timesheet</button>
+          
+        </section> <hr />
+
         <div className='total-time'>
            Total Time  : {new Date(totalTime * 1000).toISOString().slice(11, 19)}
         </div>
