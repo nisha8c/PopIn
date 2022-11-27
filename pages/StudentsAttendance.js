@@ -30,6 +30,14 @@ export default function StudentsAttendance() {
       }
     getData();
   }, [date, userEmail, totalTime]);
+
+  const deleteTimesheet = () => {
+
+  };
+
+  const deleteEntry = () => {
+    
+  };
   
   return (
     <>
@@ -53,7 +61,7 @@ export default function StudentsAttendance() {
             onChange={date => setDate(date)}
           />
 
-          <button>Delete Entire Timesheet</button>
+          <button onClick={deleteTimesheet}>Delete Entries for whole day</button>
           
         </section> <hr />
 
@@ -101,7 +109,7 @@ export default function StudentsAttendance() {
           { allEntries.map(entry => {
             return(
               <li className='delete-card' key={entry._id}>
-                <button className='delete-time-entry-btn'>Delete</button>
+                <button className='delete-time-entry-btn' onClick={deleteEntry}>Delete</button>
               </li>
              )    
             })
