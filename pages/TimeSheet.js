@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react"
 import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+const moment = require('moment');
+const momentDurationFormatSetup = require('moment-duration-format');
 
 export default function TimeSheet() {
   const { data: session } = useSession()
@@ -14,12 +16,7 @@ export default function TimeSheet() {
   const [totalTime, setTotalTime] = useState(0);
 
   useEffect(() => {
-    const formatData = (input) => {
-      if (input > '9') {
-        return input;
-      } else return `0${input}`;
-    };
-    const formatedDate = date.getFullYear() + '-' + formatData(date.getMonth()+1) + '-' + formatData(date.getDate());
+    const formatedDate = moment(date).format('YYYY-MM-DD')
     const userData = userEmail + '^' + formatedDate;
     
     const getData = async () => {
@@ -39,7 +36,7 @@ export default function TimeSheet() {
       <Header />
       <section className="timesheet-container">
       <h2>Timesheet</h2>
-        This is Timesheet....
+        
         <div className='info-container'>
            Name  : {userName}
            Email : {userEmail}
@@ -51,7 +48,7 @@ export default function TimeSheet() {
           onChange={date => setDate(date)}
         />
         <div className='total-time'>
-           Total Time  : {totalTime}
+           Total Time  : {new Date(totalTime * 1000).toISOString().slice(11, 19)}
         </div>
       </section>
       <section className="timesheet-table">
@@ -82,7 +79,7 @@ export default function TimeSheet() {
           { allEntries.map(entry => {
             return(
               <li className='time-card' key={entry._id}>
-                {entry.duration}
+                {new Date(entry.duration * 1000).toISOString().slice(11, 19)}
               </li>
              )    
             })

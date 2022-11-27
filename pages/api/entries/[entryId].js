@@ -34,24 +34,11 @@ export default async function handler(req, res) {
       const endTime = await Entry.findOne(
         { _id: req.body.documentid, 'entries._id': req.body.entryid }
       )
-
-      console.log('start time :', endTime.entries[endTime.entries.length-1].startTime)
-      console.log('end time :', endTime.entries[endTime.entries.length-1].endTime)
-      let duration = 0
-
-      ///
       
-      //function calculateDays(startDate,endDate)
-      //{
-        let start_date = moment(endTime.entries[endTime.entries.length-1].startTime, 'HH:mm:ss');
-        let end_date = moment(endTime.entries[endTime.entries.length-1].endTime, 'HH:mm:ss');
-        let TimeDuration = moment.duration(end_date.diff(start_date));
-        duration = TimeDuration.asSeconds();    
-        //return duration;
-     // }
-
-
-      ///
+      let start_date = moment(endTime.entries[endTime.entries.length-1].startTime, 'HH:mm:ss');
+      let end_date = moment(endTime.entries[endTime.entries.length-1].endTime, 'HH:mm:ss');
+      let TimeDuration = moment.duration(end_date.diff(start_date));
+      const duration = TimeDuration.asSeconds();
 
       const updateDuration = await Entry.findOneAndUpdate(
         { _id: req.body.documentid, 'entries._id': req.body.entryid },
@@ -66,7 +53,10 @@ export default async function handler(req, res) {
      
       return res
         .status(201)
-        .json({entry: document})
+        .json({
+          documentId: endTime._id, 
+          entryId: endTime.entries[endTime.entries.length-1]._id
+         })
       break;
   }
 }

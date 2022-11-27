@@ -25,7 +25,7 @@ export default async function handler(req, res) {
           totalTime: 0,
           entries: [{
             startTime: newEntry.startTime,
-            endTime: null,
+            endTime: 0,
             duration: 0,
           }]
         })
@@ -42,7 +42,7 @@ export default async function handler(req, res) {
           { $push: {
              entries:{
               startTime: newEntry.startTime,
-              endTime: null,
+              endTime: 0,
               duration: 0,
              }
             }

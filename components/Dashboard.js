@@ -4,6 +4,8 @@ import { DateTime } from 'luxon';
 import { useSession } from "next-auth/react"
 import popin from '../public/FULLin.png';
 import popout from '../public/FULLout.png';
+const moment = require('moment');
+const momentDurationFormatSetup = require('moment-duration-format');
 
 const Dashboard = () => {
   const { data: session } = useSession()
@@ -27,13 +29,7 @@ const Dashboard = () => {
   }, [time]);
 
   const current = new Date();
-  
-  const formatData = (input) => {
-    if (input > '9') {
-      return input;
-    } else return `0${input}`;
-  };
-  const currentDate = current.getFullYear() + '-' + formatData(current.getMonth()+1) + '-' + formatData(current.getDate());
+  const currentDate = moment(current).format('YYYY-MM-DD');
   
   const weekday = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const day = weekday[current.getDay()];
@@ -72,8 +68,11 @@ const Dashboard = () => {
         },
       })
         .then(response => response.json())
-        .then(updatedEntry => console.log('updatedEntry: ', updatedEntry));
-
+        .then(newEntry => {
+          setDocumentId(() => newEntry.documentId)
+          setEntryId(() => newEntry.entryId)
+        });
+        
       setAttendanceButton(popin);
     }
   };
