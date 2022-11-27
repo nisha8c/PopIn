@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import Entry from '../../../api/entry';
+const moment = require('moment');
 
 export default async function handler(req, res) {
   mongoose.connect(process.env.MONGODB_URI)
@@ -27,10 +28,36 @@ export default async function handler(req, res) {
     case 'PATCH':
       const entry = await Entry.findOneAndUpdate(
         { _id: req.body.documentid, 'entries._id': req.body.entryid },
-        { 'entries.$.endTime': req.body.endTime,
-          'entries.$.duration': 1 }
+        { 'entries.$.endTime': req.body.endTime }
       );
-     
+
+      const endTime = await Entry.findOne(
+        { _id: req.body.documentid, 'entries._id': req.body.entryid }
+      )
+
+      console.log('start time :', endTime.entries[endTime.entries.length-1].startTime)
+      console.log('end time :', endTime.entries[endTime.entries.length-1].endTime)
+      let duration = 0
+
+      ///
+      
+      //function calculateDays(startDate,endDate)
+      //{
+        let start_date = moment(endTime.entries[endTime.entries.length-1].startTime, 'HH:mm:ss');
+        let end_date = moment(endTime.entries[endTime.entries.length-1].endTime, 'HH:mm:ss');
+        let TimeDuration = moment.duration(end_date.diff(start_date));
+        duration = TimeDuration.asSeconds();    
+        //return duration;
+     // }
+
+
+      ///
+
+      const updateDuration = await Entry.findOneAndUpdate(
+        { _id: req.body.documentid, 'entries._id': req.body.entryid },
+        { 'entries.$.duration': duration }
+      );
+
       const document = await Entry.findOneAndUpdate(
         { _id : req.body.documentid },
         [ { $set: { 'totalTime': { $sum: '$entries.duration' } } } ],
