@@ -33,8 +33,8 @@ const Dashboard = () => {
       return input;
     } else return `0${input}`;
   };
-  const currentDate = current.getFullYear() + '-' + formatData(current.getMonth()) + '-' + formatData(current.getDate());
- 
+  const currentDate = current.getFullYear() + '-' + formatData(current.getMonth()+1) + '-' + formatData(current.getDate());
+  
   const weekday = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const day = weekday[current.getDay()];
   const date = `${current.getDate()}`;
@@ -60,7 +60,6 @@ const Dashboard = () => {
 
       setAttendanceButton(popout);
     } else {
-      console.log('out time for entry: ', entryid)
       fetch(`api/entries/${entryid}`, {
         method: 'PATCH',
         body: JSON.stringify({

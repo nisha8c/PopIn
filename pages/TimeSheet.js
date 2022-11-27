@@ -11,6 +11,7 @@ export default function TimeSheet() {
   const userName = session?.user?.name;
   const [allEntries, setAllEntries] = useState([])
   const [date, setDate] = useState(new Date());
+  const [dataFound, setDataFound] = useState(false);
 
   useEffect(() => {
     const formatData = (input) => {
@@ -18,18 +19,17 @@ export default function TimeSheet() {
         return input;
       } else return `0${input}`;
     };
-    console.log('Get data for -', date);
-    const formatedDate = date.getFullYear() + '-' + formatData(date.getMonth()) + '-' + formatData(date.getDate());
+    const formatedDate = date.getFullYear() + '-' + formatData(date.getMonth()+1) + '-' + formatData(date.getDate());
     const userData = userEmail + '^' + formatedDate;
-
+    
     const getData = async () => {
       await fetch(`api/entries/${userData}`, { method: 'GET' })
-        .then(response => response.json())
-        .then(allEntries => {
-          console.log('allEntries', allEntries.allEntries)
-          setAllEntries(allEntries.allEntries)
-         })
-    }
+        .then(response => {
+          response.status===200? setDataFound(true):setDataFound(false);
+          response.json();
+        })
+        .then(dataFound===true? allEntries => setAllEntries(allEntries.allEntries):setAllEntries([]))
+        }
     getData();
   }, [date]);
   

@@ -7,9 +7,9 @@ const entrySchema = new Schema({
    timesheetDate: String,
    totalTime: String,
    entries: [{ 
-      startTime: String,
-      endTime: String,
-      duration: String,
+      startTime: Date,
+      endTime: Date,
+      duration: Date,
    }]
 });
 

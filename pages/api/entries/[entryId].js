@@ -14,15 +14,24 @@ export default async function handler(req, res) {
          { timesheetDate: date }]
       })
 
-    return res
-        .status(200)
-        .json({allEntries: allTimeEntries[0].entries})
+      if ( allTimeEntries.length === 0) {
+        return res
+          .status(404)
+          .json({message: 'No entries found for this date' })
+      } else {
+          return res
+            .status(200)
+            .json({allEntries: allTimeEntries[0].entries})
+      }
       break;
     case 'PATCH':
-      console.log('documentid for end time: ', req.body.documentid)
-      console.log('entryid for end time: ', req.body.entryid)
-      const entry = await Entry.findOneAndUpdate({ _id: req.body.documentid, 'entries._id': req.body.entryid },
-       { 'entries.$.endTime': req.body.endTime });
+      const entry = await Entry.findOneAndUpdate(
+        { _id: req.body.documentid, 'entries._id': req.body.entryid },
+        { 'entries.$.endTime': req.body.endTime,
+          'entries.$.duration': { $subtract: [ `{entries.$.endTime}`, `{entries.$.startTime}` ] }
+        }
+      );
+      console.log('after end time :',entry); 
       return res
         .status(201)
         .json({entry: entry})

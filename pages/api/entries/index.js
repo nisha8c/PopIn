@@ -19,7 +19,6 @@ export default async function handler(req, res) {
         ]})
 
       if ( existingEntry === null) {
-        console.log('create new entry---')
         const createEntry = await Entry.create({
           email: newEntry.email,
           timesheetDate: newEntry.timesheetDate,
@@ -30,7 +29,7 @@ export default async function handler(req, res) {
             duration: null,
           }]
         })
-        console.log('documentId:', createEntry._id, 'entryId :', createEntry.entries[0]._id)
+
         return res
           .status(201)
           .json({ 
@@ -38,7 +37,6 @@ export default async function handler(req, res) {
             entryId: createEntry.entries[0]._id
           }) 
       } else {
-        console.log('push into exitisting entry---')
         const updateEntry = await Entry.updateOne(
           { _id: existingEntry._id }, 
           { $push: {
@@ -55,7 +53,6 @@ export default async function handler(req, res) {
            { timesheetDate : `${newEntry.timesheetDate}`}
           ]})
   
-        console.log('updatedEntry : ', updatedEntry.entries[updatedEntry.entries.length-1])
         return res
           .status(201)
           .json({
