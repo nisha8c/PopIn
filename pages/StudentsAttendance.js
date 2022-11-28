@@ -3,17 +3,13 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
-
-//import Select from 'react-select'
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
-
 import 'react-datepicker/dist/react-datepicker.css'
 const moment = require('moment');
-const momentDurationFormatSetup = require('moment-duration-format');
 
 export default function StudentsAttendance() {
-  
+
   const [allEntries, setAllEntries] = useState([])
   const [allUsers, setAllUsers] = useState([])
   const [selectedEmail, setSelectedEmail] = useState('')
@@ -22,10 +18,9 @@ export default function StudentsAttendance() {
 
   useEffect(() => {
     const formatedDate = moment(date).format('YYYY-MM-DD')
-    const userData = selectedEmail + '^' + formatedDate;
 
     const getusers = async () => {
-      await fetch('api/entries', { method: 'GET' })
+      await fetch(`api/entries`, { method: 'GET' })
         .then(response => response.json())
         .then(result => {
           setAllUsers(result.allUsersList)
@@ -34,44 +29,38 @@ export default function StudentsAttendance() {
       getusers();
       
      const getData = async () => {
-      await fetch(`api/entries/${userData}`, { method: 'GET' })
+      await fetch(`api/day/${selectedEmail}/${formatedDate}`, { method: 'GET' })
         .then(response => response.json())
         .then(timesheetData => {
-           console.log('timesheetData::: ', timesheetData);
            setAllEntries(timesheetData.allEntries)
            setTotalTime(timesheetData.totalTime)
           }
         )
       }
     getData();
-  }, [selectedEmail]);
+  }, [date,selectedEmail]);
+
+  const handleCategoryChange = event => {
+    setSelectedEmail(event.value);
+  };
 
   const deleteTimesheet = async () => {
-    console.log('deleteTimesheet called');
-    fetch('api/entries', {
-      method: 'DELETE',
-      body: JSON.stringify({ 
-        email: `${selectedEmail}`,
-        timesheetDate: `${date}`}
-      ) 
-    })
+    /* working -- do not uncomment until use effect issue is resolved
+    const formatedDate = moment(date).format('YYYY-MM-DD')
+    await fetch(`api/day/${selectedEmail}/${formatedDate}`, { method: 'DELETE' })
       .then(response => response.json())
-      .then(message => console.log(message,'Document'));
+      .then(message => console.log(message))
+     */ 
   };
 
-  const deleteEntry = async (deleteEntryId) => {
-    console.log('deleteEntry called')
-    fetch('api/entries', {
-      method: 'DELETE',
-      body: JSON.stringify({ entryid: deleteEntryId }),
-    })
-      .then(response => response.json())
-      .then(message => console.log(message,'Entry'));
-  };
+  const deleteEntry = async (entryid) => {
+    console.log(`deleting entry ${entryid}`);
   
-  const handleCategoryChange = event => {
-    console.log('handleCategoryChange::::: ', event.value);
-    setSelectedEmail(event.value);
+    /* probably working -- do not uncomment until use effect issue is resolved
+    fetch(`api/entries/${entryid}`, { method: 'DELETE' } )
+      .then(response => response.json())
+      .then(message => console.log(message))
+    */  
   };
 
   return (
@@ -139,7 +128,7 @@ export default function StudentsAttendance() {
           { allEntries.map(entry => {
             return(
               <li className='delete-card' key={entry._id}>
-                <button className='delete-time-entry-btn' onClick={deleteEntry}>Delete</button>
+                <button className='delete-time-entry-btn' onClick={deleteEntry(entry._id)}>Delete</button>
               </li>
              )    
             })

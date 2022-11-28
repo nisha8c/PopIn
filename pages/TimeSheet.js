@@ -17,10 +17,9 @@ export default function TimeSheet() {
 
   useEffect(() => {
     const formatedDate = moment(date).format('YYYY-MM-DD')
-    const userData = userEmail + '^' + formatedDate;
     
     const getData = async () => {
-      await fetch(`api/entries/${userData}`, { method: 'GET' })
+      await fetch(`api/day/${userEmail}/${formatedDate}`, { method: 'GET' })
         .then(response => response.json())
         .then(timesheetData => {
            setAllEntries(timesheetData.allEntries)

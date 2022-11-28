@@ -68,25 +68,5 @@ export default async function handler(req, res) {
           .status(201)
           .json({message: 'you have reached PATCH endpoint' })
         break;
-    case 'DELETE':
-        console.log('Delete case')  
-        if ( req.body.level === 'entry') {   
-          console.log('Delete entry ')
-          awaitntryId.findOneAndUpdate(
-            { 'entries._id': req.body.entryid },
-            { $pull: { entries: {'_id': req.body.entryid } } }
-          ) 
-        } else {
-          console.log('Delete document')
-          await Entry.deleteOne({ $and:
-           [{ email: `${req.body.email}`},
-            { timesheetDate: `${req.body.date}`}
-           ]}
-          )
-        }     
-        return res
-          .status(201)
-          .json({message: 'You have sucessfully deleted requested ' })
-        break;
   }
 }
