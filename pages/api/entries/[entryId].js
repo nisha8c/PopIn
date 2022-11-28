@@ -51,13 +51,17 @@ export default async function handler(req, res) {
         { returnNewDocument: true }
       );
      
-      return res
-        .status(201)
-        .json({
-          documentId: endTime._id, 
-          entryId: endTime.entries[endTime.entries.length-1]._id
-         })
+         return respond(res, endTime._id, endTime.entries[endTime.entries.length-1] )
       break;
   }
 }
 
+const respond = (res, entry, docID) => {
+  res
+    .status(201)
+    .json({
+      documentId: docID, 
+      entryId: entry._id,
+      entry
+    })
+}

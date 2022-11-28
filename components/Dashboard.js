@@ -13,7 +13,7 @@ const Dashboard = () => {
   const [documentid, setDocumentId] = useState(null)
   const [entryid, setEntryId] = useState(null)
   const [clockIn, setClockIn] = useState('--:--');
-  const [clockOut, setClockOutn] = useState('--:--');
+  const [clockOut, setClockOut] = useState('--:--');
 
   useEffect(() => {
     const attendanceButton = JSON.parse(localStorage.getItem('attendanceButton'));
@@ -23,19 +23,12 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    const clockIn = JSON.parse(localStorage.getItem('clockIn'));
-    if (clockIn) {
-      setClockIn(clockIn);
-    }
-  }, []);
+    localStorage.setItem('clockIn',  JSON.stringify(clockIn))
+  }, [clockIn])
 
   useEffect(() => {
     localStorage.setItem('attendanceButton', JSON.stringify(attendanceButton));
   }, [attendanceButton]);
-
-  useEffect(() => {
-    localStorage.setItem('clockIn', JSON.stringify(clockIn))
-  }, [clockIn])
 
   useEffect(() => {
     const interval = setInterval(() => setTime(DateTime.now()), 1000);
@@ -75,6 +68,7 @@ const Dashboard = () => {
   }
 
   const handleOutBtn = () => {
+    console.log(entryid);
     fetch(`api/entries/${entryid}`, {
       method: 'PATCH',
       body: JSON.stringify({
@@ -88,9 +82,11 @@ const Dashboard = () => {
     })
       .then(response => response.json())
       .then(newEntry => {
+        const time = newEntry.documentId.endTime.split('T')[1].split(':');
+        const displayOutTime = time[0] + ':' + time[1];
+        setClockOut(displayOutTime)
         setDocumentId(() => newEntry.documentId)
         setEntryId(() => newEntry.entryId)
-        console.log(newEntry)
       });
     toggleInOutButton()
   }
