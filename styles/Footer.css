@@ -16,14 +16,14 @@
   /* text-shadow: 3px 3px 5px #595959; */
   border: none;
   font-size: 2rem;
-  color: #F9F6EE;
+  color: #fffaf0;
 }
 
 .footer-button:active {
   font-weight: bold;
   font-style: italic;
   cursor: pointer;
-  color: #828786;
+  color: #e3b695;
   /* text-shadow: 3px 3px 5px #595959; */
   transform: scale(0.9);
 }
@@ -34,7 +34,7 @@
     font-weight: bold;
     font-style: italic;
     cursor: pointer;
-    color: #828786;
+    color: #e3b695;
     /* text-shadow: 3px 3px 5px #595959; */
   }
 }

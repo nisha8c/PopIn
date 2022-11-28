@@ -39,3 +39,12 @@
 .myButtOut:active {
   transform: scale(0.9) rotate(15deg);
 }
+
+.student-button {
+  position: relative;
+}
+
+.view-dev-Info {
+  position: absolute;
+  bottom: 0;
+}

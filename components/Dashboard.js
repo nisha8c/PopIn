@@ -99,11 +99,13 @@ const Dashboard = () => {
         getButton(attendanceButton)
       }
       <br></br>
-      {session?.user?.role &&
-        <Link href="/StudentsAttendance">
-          <button className='view-dev-Info'>View Students Attendence</button>
-        </Link>
-      }
+      <section className="student-button">
+        {session?.user?.role &&
+          <Link href="/StudentsAttendance">
+            <button className="view-dev-Info">View Student Attendence</button>
+          </Link>
+        }
+      </section>
     </div>
   )
 }
