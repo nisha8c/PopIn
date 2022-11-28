@@ -23,8 +23,19 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
+    const clockIn = JSON.parse(localStorage.getItem('clockIn'));
+    if (clockIn) {
+      setClockIn(clockIn);
+    }
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem('attendanceButton', JSON.stringify(attendanceButton));
   }, [attendanceButton]);
+
+  useEffect(() => {
+    localStorage.setItem('clockIn', JSON.stringify(clockIn))
+  }, [clockIn])
 
   useEffect(() => {
     const interval = setInterval(() => setTime(DateTime.now()), 1000);
@@ -56,7 +67,9 @@ const Dashboard = () => {
       .then(newEntry => {
         setDocumentId(() => newEntry.documentId)
         setEntryId(() => newEntry.entryId)
-        console.log(newEntry);
+        const time = newEntry.entry.startTime.split('T')[1].split(':')
+        const displayInTime = time[0] + ':' + time[1];
+        setClockIn(displayInTime);
       });
     toggleInOutButton()
   }

@@ -9,7 +9,8 @@
   background-color: #828786;
   color: white;
   border: none;
-  position: sticky;
+  position: fixed;
   top: 0;
   text-align: center;
+  z-index: 5;
 }

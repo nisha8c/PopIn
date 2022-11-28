@@ -1,4 +1,5 @@
 .timesheet-container {
+  margin-top: 11rem;
   margin-left: 2rem;
   margin-right: 2rem;
 }
@@ -6,4 +7,5 @@
 .timesheet-table {
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 7rem;
 }

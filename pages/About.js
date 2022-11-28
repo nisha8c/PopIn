@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 
 const About = () => {
   return (
-    <>
+    <section className="about-page">
     <Header />
     <section className="about-container">
       <h2>About Us</h2>
@@ -32,7 +32,7 @@ const About = () => {
 
     </section>
     <Footer />
-    </>
+    </section>
   )
 }
 

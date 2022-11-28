@@ -9,6 +9,7 @@ import '../styles/Settings.css'
 import '../styles/Timesheet.css'
 import '../styles/About.css'
 import '../styles/StudentsAttendance.css'
+import '../styles/Profile.css'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 	return (
