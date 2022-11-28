@@ -90,6 +90,7 @@ const Dashboard = () => {
       .then(newEntry => {
         setDocumentId(() => newEntry.documentId)
         setEntryId(() => newEntry.entryId)
+        console.log(newEntry)
       });
     toggleInOutButton()
   }
@@ -119,21 +120,15 @@ const Dashboard = () => {
         <div className="clock">
           <BsClockFill className="clock-icon" />
           <p className="clock-content"> { clockOut } </p>
-          <p className="clock-content"> Clock Out! </p>
+          <p className="clock-content"> Clock Out </p>
         </div>
       </section>
-      <br></br>
 
-      {session?.user?.role &&
-        <Link href="/StudentsAttendance">
-          <button className='view-dev-Info'>View Students Attendence</button>
-        </Link>
-      }
       <br></br>
       <section className="student-button">
         {session?.user?.role &&
           <Link href="/StudentsAttendance">
-            <button className="view-dev-Info">View Student Attendence</button>
+            <button className="view-dev-Info">View Student Attendance</button>
           </Link>
         }
       </section>
