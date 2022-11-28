@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import Image from 'next/image'
 import { DateTime } from 'luxon';
 import { useSession } from "next-auth/react"
-import popin from '../public/FULLin.png';
-import popout from '../public/FULLout.png';
 const moment = require('moment');
 const momentDurationFormatSetup = require('moment-duration-format');
 import Link from 'next/link';
+import { BsClock, BsClockFill } from "react-icons/bs";
 
 const Dashboard = () => {
   const { data: session } = useSession()
@@ -15,6 +13,8 @@ const Dashboard = () => {
   const [attendanceButton, setAttendanceButton] = useState(false);
   const [documentid, setDocumentId] = useState(null)
   const [entryid, setEntryId] = useState(null)
+  const [clockIn, setClockIn] = useState('--:--');
+  const [clockOut, setClockOutn] = useState('--:--');
 
   useEffect(() => {
     const attendanceButton = JSON.parse(localStorage.getItem('attendanceButton'));
@@ -57,6 +57,7 @@ const Dashboard = () => {
       .then(newEntry => {
         setDocumentId(() => newEntry.documentId)
         setEntryId(() => newEntry.entryId)
+        console.log(newEntry);
       });
     toggleInOutButton()
   }
@@ -95,10 +96,23 @@ const Dashboard = () => {
       <h1 className="dashboard-clock">{time.setZone('Europe/Stockholm').toLocaleString(DateTime.TIME_WITH_SECONDS)}</h1>
       <h3 className="dashboard-calendar">{day}, {monthName} {date}</h3>
 
-      {
-        getButton(attendanceButton)
-      }
+      { getButton(attendanceButton) }
+      
       <br></br>
+      <section className="clockIn-details_container">
+        <div className="clock">
+          <BsClock className="clock-icon" />
+          <p className="clock-content"> { clockIn } </p>
+          <p className="clock-content"> Clock In </p>
+        </div>
+        <div className="clock">
+          <BsClockFill className="clock-icon" />
+          <p className="clock-content"> { clockOut } </p>
+          <p className="clock-content"> Clock Out </p>
+        </div>
+      </section>
+      <br></br>
+
       {session?.user?.role &&
         <Link href="/StudentsAttendance">
           <button className='view-dev-Info'>View Students Attendence</button>
