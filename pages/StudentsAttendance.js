@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { useSession } from "next-auth/react"
@@ -8,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 const moment = require('moment');
 const momentDurationFormatSetup = require('moment-duration-format');
 
-export default function TimeSheet() {
+export default function StudentsAttendance() {
   const { data: session } = useSession()
   const userEmail = session?.user?.email;
   const userName = session?.user?.name;
@@ -31,25 +30,44 @@ export default function TimeSheet() {
       }
     getData();
   }, [date, userEmail, totalTime]);
+
+  const deleteTimesheet = () => {
+
+  };
+
+  const deleteEntry = () => {
+    
+  };
   
   return (
     <>
       <Header />
       <section className="timesheet-container">
-      <h2>Timesheet</h2>
-        
-        <div className='info-container'>
-           Name  : {userName}
-           Email : {userEmail}
-        </div>
-        Filter By Date:
-        <DatePicker
-          value={date}
-          selected={date}
-          onChange={date => setDate(date)}
-        />
+        <h2>View Students Attendance</h2>
+      
+        <section className='filter-container'>
+
+          Filter by Student-Email:    
+          <select>
+            <option>1</option>
+            <option>2</option>
+          </select>
+          <br></br><br></br>
+
+          Filter By Date:
+          <DatePicker
+            value={date}
+            selected={date}
+            onChange={date => setDate(date)}
+          />
+
+          <br></br><br></br>
+          <button onClick={deleteTimesheet}>Delete Entries for whole day</button>
+          
+        </section> <hr />
+
         <div className='total-time'>
-           Total Time  : {new Date(totalTime * 1000).toISOString().slice(11, 19)}
+           <h3>Total Time  : {new Date(totalTime * 1000).toISOString().slice(11, 19)}</h3>
         </div>
       </section>
       <section className="timesheet-table">
@@ -81,6 +99,18 @@ export default function TimeSheet() {
             return(
               <li className='time-card' key={entry._id}>
                 {new Date(entry.duration * 1000).toISOString().slice(11, 19)}
+              </li>
+             )    
+            })
+          }
+        </ul>
+
+        <ul className='delete-list'>
+          Delete Attendance Entry
+          { allEntries.map(entry => {
+            return(
+              <li className='delete-card' key={entry._id}>
+                <button className='delete-time-entry-btn' onClick={deleteEntry}>Delete</button>
               </li>
              )    
             })

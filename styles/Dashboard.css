@@ -10,68 +10,69 @@
   margin-top: -1rem;
 }
 
-.inOut {
+.in-out {
   border-radius: 50%;
   background: white;
   border: 0px solid #d8d8d8;
   /* box-shadow: 3px 3px 5px #595959; */
 }
 
-.inOut:active {
+.in-out:active {
   transform: scale(0.9);
 }
 
-.inOut:hover {
+.in-out:hover {
   cursor: pointer;
 }
 
-.popButtonIn {
-  border-radius: 50%;
+.myButtIn {
+  cursor: pointer;
   width: 11rem;
   height: 11rem;
-  font-size: 5rem;
-  transform: rotate(-10deg);
-  background-color: rgb(129, 194, 166);
+  border-radius: 50%;
   border: none;
+  font-size: 5rem;
+  transform: rotate(-15deg);
+  background-color: #6bc5a4;
+}
+
+.myButtIn:active {
+  transform: scale(0.9) rotate(-15deg);
+}
+
+.myButtOut {
   cursor: pointer;
-}
-
-.popButtonIn:active {
-  transform: scale(0.9) rotate(-10deg);
-}
-
-.popButtonOut {
-  border-radius: 50%;
   width: 11rem;
   height: 11rem;
+  border-radius: 50%;
+  border: none;
   font-size: 5rem;
-  transform: rotate(10deg);
+  transform: rotate(15deg);
   background-color: rgb(217, 217, 217);
-  border: none;
-  cursor: pointer;
 }
 
-.popButtonOut:active {
-  transform: scale(0.9) rotate(10deg);
+.myButtOut:active {
+  transform: scale(0.9) rotate(15deg);
 }
 
-.clockIn {
-  margin-top: 3rem;
-  font-size: 2rem;
-}
-
-p {
-  margin: 0;
-}
-
-.details_container {
+.clockIn-details_container {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   width: 50%;
   margin: auto;
+  
 }
 
-.clockIn_container {
+.clock-content {
+  margin : 0;
+}
+
+.clock {
   text-align: center;
+  font-size: 1.2rem;
+}
+
+.clock-icon {
+  font-size: 2.5rem;
 }
