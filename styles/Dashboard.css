@@ -24,3 +24,33 @@
 .in-out:hover {
   cursor: pointer;
 }
+
+.myButtIn {
+  cursor: pointer;
+  width: 11rem;
+  height: 11rem;
+  border-radius: 50%;
+  border: none;
+  font-size: 5rem;
+  transform: rotate(-15deg);
+  background-color: #6bc5a4;
+}
+
+.myButtIn:active {
+  transform: scale(0.9) rotate(-15deg);
+}
+
+.myButtOut {
+  cursor: pointer;
+  width: 11rem;
+  height: 11rem;
+  border-radius: 50%;
+  border: none;
+  font-size: 5rem;
+  transform: rotate(15deg);
+  background-color: rgb(217, 217, 217);
+}
+
+.myButtOut:active {
+  transform: scale(0.9) rotate(15deg);
+}
