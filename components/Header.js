@@ -1,18 +1,16 @@
 import React from 'react'
-import Image from 'next/image'
-import { BsFillCpuFill } from 'react-icons/bs'
 import { useSession } from "next-auth/react"
 
 export default function Header() {
   const { data: session } = useSession()
 
-  const superSettingsHandler = () => {
-    console.log('ooo that tickles')
-  }
+  const determineUser = (session) => session?.user.role ? 'Instructor' : 'Student'
+
   return (
     <>
       <section className="header-container">
-        Welcome, {session?.user?.name}!
+        Welcome, {session?.user?.name}!<br></br>
+        You are logged in as {determineUser(session)}
       </section>
     </>
   )

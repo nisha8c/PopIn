@@ -12,7 +12,8 @@ export default async function handler(req, res) {
     case 'PATCH':
       console.log(req.body);
       const entry = await Entry.findOneAndUpdate({ _id: req.body.entryid }, { endTime: req.body.endTime, finish: true});
-      return res.status(201).json({entry: entry})
+      console.log(entry.endTime);
+      return res.status(201).json({entry:"hello"})
       break;
   }
 }

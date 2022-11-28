@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { useSession } from "next-auth/react"
@@ -5,17 +6,24 @@ import { useEffect, useState } from 'react'
 
 export default function TimeSheet() {
   const { data: session } = useSession()
-  const userId = session?.user?.id;
-
+  let userId = session?.user?.id
   const [allEntries, setAllEntries] = useState([])
 
   useEffect(() => {
+    if (!userId) {
+      userId = JSON.parse(localStorage.getItem('userId'))
+    }
     fetch(`api/entries/${userId}`, { 
       method: 'GET',
     })
       .then(response => response.json())
       .then(allEntries => setAllEntries(allEntries.allUsersEntries));
   }, [])
+
+  useEffect(() => {
+    localStorage.setItem('userId', JSON.stringify(userId));
+  }, []);
+
   
   return (
     <>
