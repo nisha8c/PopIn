@@ -4,6 +4,11 @@ import Footer from '../components/Footer'
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
+
+//import Select from 'react-select'
+import Dropdown from 'react-dropdown'
+import 'react-dropdown/style.css'
+
 import 'react-datepicker/dist/react-datepicker.css'
 const moment = require('moment');
 const momentDurationFormatSetup = require('moment-duration-format');
@@ -78,20 +83,9 @@ export default function StudentsAttendance() {
       
         <section className='filter-container'>
 
-          Filter by Student-Email:    
-          <select
-            id='user-email'
-            key={`${selectedEmail}`}
-            value={selectedEmail}
-            className='select-email'
-            onChange={handleCategoryChange}
-          >
-            <option value=''>Select Email</option>
-            {for(let i=0; i < allUsers.length; i++) {
-               <option key={i} value={allUsers[i]}>{allUsers[i]}</option>
-            }
-            }
-          </select>
+          Filter by Student-Email:  
+          <Dropdown options={allUsers}/>
+           
           <br></br><br></br>
 
           Filter By Date:
@@ -149,7 +143,7 @@ export default function StudentsAttendance() {
           { allEntries.map(entry => {
             return(
               <li className='delete-card' key={entry._id}>
-                <button className='delete-time-entry-btn' onClick={deleteEntry(entry._id)}>Delete</button>
+                <button className='delete-time-entry-btn' onClick={deleteEntry}>Delete</button>
               </li>
              )    
             })
