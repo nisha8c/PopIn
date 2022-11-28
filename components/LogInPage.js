@@ -23,15 +23,9 @@ export default function SignIn() {
   const handleSubmit = (e) => e.preventDefault()
 
   return (
-    <>
+    <main className='root'>
     <section className="login-page">
-      <Image
-        src={logo}
-        alt="logo"
-        width={200}
-        height={200}
-        priority
-      />
+      <div className="logo">POP<br/>IN</div>
       <h3>mark your attendance</h3>
       <form className="form-container" onSubmit={handleSubmit}>
         {
@@ -44,6 +38,6 @@ export default function SignIn() {
         }
       </form>
     </section>
-    </>
+    </main>
   )
 }

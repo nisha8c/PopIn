@@ -10,17 +10,32 @@
   margin-top: -1rem;
 }
 
-.in-out {
-  border-radius: 50%;
-  background: white;
-  border: 0px solid #d8d8d8;
-  /* box-shadow: 3px 3px 5px #595959; */
-}
-
-.in-out:active {
-  transform: scale(0.9);
-}
-
-.in-out:hover {
+.myButtIn {
   cursor: pointer;
+  width: 11rem;
+  height: 11rem;
+  border-radius: 50%;
+  border: none;
+  font-size: 5rem;
+  transform: rotate(-15deg);
+  background-color: #c58d5f;
+}
+
+.myButtIn:active {
+  transform: scale(0.9) rotate(-15deg);
+}
+
+.myButtOut {
+  cursor: pointer;
+  width: 11rem;
+  height: 11rem;
+  border-radius: 50%;
+  border: none;
+  font-size: 5rem;
+  transform: rotate(15deg);
+  background-color: #e3b695;
+}
+
+.myButtOut:active {
+  transform: scale(0.9) rotate(15deg);
 }

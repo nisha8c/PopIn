@@ -15,7 +15,7 @@ export default function Settings() {
 
   const setDarkTheme = () => {
     console.log('Setting dark theme');
-    document.body.style.backgroundColor = '#265584';
+    document.body.style.backgroundColor = '#828786';
     document.body.style.color = 'white';
   };
   

@@ -4,8 +4,8 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  background-color: #f2d274;
-  position: absolute;
+  background-color: #859482;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
@@ -13,17 +13,17 @@
 
 .footer-button {
   background-color: transparent;
-  color:#e6995c;
   /* text-shadow: 3px 3px 5px #595959; */
   border: none;
   font-size: 2rem;
+  color: #F9F6EE;
 }
 
 .footer-button:active {
   font-weight: bold;
   font-style: italic;
   cursor: pointer;
-  color: #f0ca56;
+  color: #828786;
   /* text-shadow: 3px 3px 5px #595959; */
   transform: scale(0.9);
 }
@@ -34,7 +34,7 @@
     font-weight: bold;
     font-style: italic;
     cursor: pointer;
-    color: #f0ca56;
+    color: #828786;
     /* text-shadow: 3px 3px 5px #595959; */
   }
 }
