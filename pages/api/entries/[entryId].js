@@ -6,6 +6,8 @@ export default async function handler(req, res) {
   mongoose.connect(process.env.MONGODB_URI)
   switch(req.method) {
     case 'GET' :  
+      console.log('fetching timesheet');
+      
       const userData = req.url.split('/')[3];
       const userEmail = userData.split('%5E')[0];
       const date = userData.split('%5E')[1];

@@ -4,6 +4,7 @@ import { DateTime } from 'luxon';
 import { useSession } from "next-auth/react"
 import popin from '../public/FULLin.png';
 import popout from '../public/FULLout.png';
+import Link from 'next/link';
 const moment = require('moment');
 const momentDurationFormatSetup = require('moment-duration-format');
 
@@ -90,6 +91,11 @@ const Dashboard = () => {
         height={180}
       />
       </button>
+      {session?.user?.role &&
+        <Link href="/StudentsAttendance">
+          <button className='view-dev-Info'>View Students Attendence</button>
+        </Link>
+      }
     </div>
   )
 }

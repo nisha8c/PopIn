@@ -6,16 +6,17 @@ export default async function handler(req, res) {
   
   switch(req.method) {
     case 'GET':
+      const allUsers = await Entry.distinct('email');
       return res
         .status(201)
-        .json({message: 'you have reached GET endpoint' })
+        .json({ allUsersList: allUsers })
       break;
     case 'POST':
       const newEntry = JSON.parse(req.body)
 
       const existingEntry = await Entry.findOne({ $and:
         [{ email: `${newEntry.email}`},
-         { timesheetDate : `${newEntry.timesheetDate}`}
+         { timesheetDate: `${newEntry.timesheetDate}`}
         ]})
 
       if ( existingEntry === null) {
@@ -66,6 +67,26 @@ export default async function handler(req, res) {
         return res
           .status(201)
           .json({message: 'you have reached PATCH endpoint' })
+        break;
+    case 'DELETE':
+        console.log('Delete case')  
+        if ( req.body.level === 'entry') {   
+          console.log('Delete entry ')
+          awaitntryId.findOneAndUpdate(
+            { 'entries._id': req.body.entryid },
+            { $pull: { entries: {'_id': req.body.entryid } } }
+          ) 
+        } else {
+          console.log('Delete document')
+          await Entry.deleteOne({ $and:
+           [{ email: `${req.body.email}`},
+            { timesheetDate: `${req.body.date}`}
+           ]}
+          )
+        }     
+        return res
+          .status(201)
+          .json({message: 'You have sucessfully deleted requested ' })
         break;
   }
 }
