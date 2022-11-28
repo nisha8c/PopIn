@@ -30,12 +30,7 @@ export default async function handler(req, res) {
           }]
         })
 
-        return res
-          .status(201)
-          .json({ 
-            documentId: createEntry._id, 
-            entryId: createEntry.entries[0]._id
-          }) 
+        return respond(res, createEntry.entries[0], createEntry._id)
       } else {
         const updateEntry = await Entry.updateOne(
           { _id: existingEntry._id }, 
@@ -54,12 +49,7 @@ export default async function handler(req, res) {
            { timesheetDate : `${newEntry.timesheetDate}`}
           ]})
         
-        return res
-          .status(201)
-          .json({
-             documentId: existingEntry._id, 
-             entryId: updatedEntry.entries[updatedEntry.entries.length-1]._id
-            })
+        return respond(res, updatedEntry.entries[updatedEntry.entries.length-1], existingEntry._id,)
       }
       break;
     case 'PATCH':
@@ -68,4 +58,14 @@ export default async function handler(req, res) {
           .json({message: 'you have reached PATCH endpoint' })
         break;
   }
+}
+
+const respond = (res, entry, docID) => {
+  res
+    .status(201)
+    .json({
+      documentId: docID, 
+      entryId: entry._id,
+      entry
+    })
 }

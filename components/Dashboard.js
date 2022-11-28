@@ -116,6 +116,14 @@ const Dashboard = () => {
           <button className='view-dev-Info'>View Students Attendence</button>
         </Link>
       }
+      <br></br>
+      <section className="student-button">
+        {session?.user?.role &&
+          <Link href="/StudentsAttendance">
+            <button className="view-dev-Info">View Student Attendence</button>
+          </Link>
+        }
+      </section>
     </div>
   )
 }

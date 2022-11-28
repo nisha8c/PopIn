@@ -45,7 +45,7 @@ export default function StudentsAttendance() {
       <section className="timesheet-container">
         <h2>View Students Attendance</h2>
       
-        <section className='filter-container'>
+        <section className="filter-container">
 
           Filter by Student-Email:    
           <select>
@@ -66,38 +66,38 @@ export default function StudentsAttendance() {
           
         </section> <hr />
 
-        <div className='total-time'>
+        <div className="total-time">
            <h3>Total Time  : {new Date(totalTime * 1000).toISOString().slice(11, 19)}</h3>
         </div>
       </section>
       <section className="timesheet-table">
-        <ul className='start-time-list'>
+        <ul className="start-time-list">
           Start Time
           { allEntries.map(entry => {
             return(
-              <li className='time-card' key={entry._id}>
+              <li className="time-card" key={entry._id}>
                 {entry.startTime}
               </li>
              )    
             })
           }
         </ul>
-        <ul className='end-time-list'>
+        <ul className="end-time-list">
           End Time
           { allEntries.map(entry => {
             return(
-              <li className='time-card' key={entry._id}>
+              <li className="time-card" key={entry._id}>
                 {entry.endTime}
               </li>
              )    
             })
           }
         </ul>
-        <ul className='duration-list'>
+        <ul className="duration-list">
           Duration
           { allEntries.map(entry => {
             return(
-              <li className='time-card' key={entry._id}>
+              <li className="time-card" key={entry._id}>
                 {new Date(entry.duration * 1000).toISOString().slice(11, 19)}
               </li>
              )    
@@ -105,12 +105,12 @@ export default function StudentsAttendance() {
           }
         </ul>
 
-        <ul className='delete-list'>
+        <ul className="delete-list">
           Delete Attendance Entry
           { allEntries.map(entry => {
             return(
-              <li className='delete-card' key={entry._id}>
-                <button className='delete-time-entry-btn' onClick={deleteEntry}>Delete</button>
+              <li className="delete-card" key={entry._id}>
+                <button className="delete-time-entry-btn" onClick={deleteEntry}>Delete</button>
               </li>
              )    
             })

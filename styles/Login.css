@@ -1,10 +1,18 @@
+.root{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .login-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 3rem;
 }
+
 .form-container {
   margin: auto;
   padding: 1rem;
@@ -37,4 +45,18 @@
 .form-button__innerText {
   padding: 0.5rem;
   font-size: 1rem;
+}
+
+.logo {
+  display: flex;
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+  background-color: #c58d5f;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 5rem;
+  line-height: 90%;
+  transform: rotate(-15deg);
 }

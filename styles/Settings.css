@@ -6,7 +6,6 @@
 .settings-button {
   display: flex;
   flex-direction: column;
-  border-color: #aae6cd;
   margin: 1rem;
   border-radius: 1rem;
   border-width: 0.3rem;

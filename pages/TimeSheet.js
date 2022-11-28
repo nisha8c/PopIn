@@ -18,9 +18,11 @@ export default function TimeSheet() {
 
   useEffect(() => {
     const formatedDate = moment(date).format('YYYY-MM-DD')
-    const userData = userEmail + '^' + formatedDate;
     
     const getData = async () => {
+      if (!userEmail || !formatedDate)
+        return
+      const userData = userEmail + '^' + formatedDate;
       await fetch(`api/entries/${userData}`, { method: 'GET' })
         .then(response => response.json())
         .then(timesheetData => {
@@ -38,7 +40,7 @@ export default function TimeSheet() {
       <section className="timesheet-container">
       <h2>Timesheet</h2>
         
-        <div className='info-container'>
+        <div className="info-container">
            Name  : {userName}
            Email : {userEmail}
         </div>
@@ -53,33 +55,33 @@ export default function TimeSheet() {
         </div>
       </section>
       <section className="timesheet-table">
-        <ul className='start-time-list'>
+        <ul className="start-time-list">
           Start Time
           { allEntries.map(entry => {
             return(
-              <li className='time-card' key={entry._id}>
+              <li className="time-card" key={entry._id}>
                 {entry.startTime}
               </li>
              )    
             })
           }
         </ul>
-        <ul className='end-time-list'>
+        <ul className="end-time-list">
           End Time
           { allEntries.map(entry => {
             return(
-              <li className='time-card' key={entry._id}>
+              <li className="time-card" key={entry._id}>
                 {entry.endTime}
               </li>
              )    
             })
           }
         </ul>
-        <ul className='duration-list'>
+        <ul className="duration-list">
           Duration
           { allEntries.map(entry => {
             return(
-              <li className='time-card' key={entry._id}>
+              <li className="time-card" key={entry._id}>
                 {new Date(entry.duration * 1000).toISOString().slice(11, 19)}
               </li>
              )    
