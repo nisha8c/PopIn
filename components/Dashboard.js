@@ -108,7 +108,7 @@ const Dashboard = () => {
         <div className="clock">
           <BsClockFill className="clock-icon" />
           <p className="clock-content"> { clockOut } </p>
-          <p className="clock-content"> Clock Out </p>
+          <p className="clock-content"> Clock Out! </p>
         </div>
       </section>
       <br></br>
