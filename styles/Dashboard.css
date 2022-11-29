@@ -4,7 +4,7 @@
   justify-content: center;
   flex-direction: column;
   color: rgb(0, 0, 0);
-  margin-top: 11rem;
+  margin-top: 10rem;
   margin-bottom: 3rem;
   height: 65vh;
 }
@@ -15,11 +15,11 @@
 
 .myButtIn {
   cursor: pointer;
-  width: 11rem;
-  height: 11rem;
+  width: 10rem;
+  height: 10rem;
   border-radius: 50%;
   border: none;
-  font-size: 5rem;
+  font-size: 4rem;
   transform: rotate(-15deg);
   background-color: #c58d5f;
 }
@@ -30,11 +30,11 @@
 
 .myButtOut {
   cursor: pointer;
-  width: 11rem;
-  height: 11rem;
+  width: 10rem;
+  height: 10rem;
   border-radius: 50%;
   border: none;
-  font-size: 5rem;
+  font-size: 4rem;
   transform: rotate(15deg);
   background-color: #e3b695;
 }
