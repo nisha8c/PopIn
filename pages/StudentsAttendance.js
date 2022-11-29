@@ -45,22 +45,16 @@ export default function StudentsAttendance() {
   };
 
   const deleteTimesheet = async () => {
-    /* working -- do not uncomment until use effect issue is resolved
     const formatedDate = moment(date).format('YYYY-MM-DD')
     await fetch(`api/day/${selectedEmail}/${formatedDate}`, { method: 'DELETE' })
       .then(response => response.json())
-      .then(message => console.log(message))
-     */ 
+      .then(message => console.log(message)) 
   };
 
   const deleteEntry = async (entryid) => {
-    console.log(`deleting entry ${entryid}`);
-  
-    /* probably working -- do not uncomment until use effect issue is resolved
     fetch(`api/entries/${entryid}`, { method: 'DELETE' } )
       .then(response => response.json())
       .then(message => console.log(message))
-    */  
   };
 
   return (
@@ -83,7 +77,7 @@ export default function StudentsAttendance() {
             selected={date}
             onChange={date => setDate(date)}
           />
-          <button onClick={deleteTimesheet}>Delete Entries for whole day</button>
+          <button onClick={() => deleteTimesheet()}>Delete Entries for whole day</button>
         </section> <hr />
         <div className='total-time'>
            Total Time  : {new Date(totalTime * 1000).toISOString().slice(11, 19)}
@@ -92,7 +86,7 @@ export default function StudentsAttendance() {
       <section className="timesheet-table">
         <ul className='start-time-list'>
           Start Time
-          { allEntries.map(entry => {
+          { allEntries?.map(entry => {
             return(
               <li className='time-card' key={entry._id}>
                 {entry.startTime}
@@ -103,7 +97,7 @@ export default function StudentsAttendance() {
         </ul>
         <ul className='end-time-list'>
           End Time
-          { allEntries.map(entry => {
+          { allEntries?.map(entry => {
             return(
               <li className='time-card' key={entry._id}>
                 {entry.endTime}
@@ -114,7 +108,7 @@ export default function StudentsAttendance() {
         </ul>
         <ul className='duration-list'>
           Duration
-          { allEntries.map(entry => {
+          { allEntries?.map(entry => {
             return(
               <li className='time-card' key={entry._id}>
                 {new Date(entry.duration * 1000).toISOString().slice(11, 19)}
@@ -125,10 +119,10 @@ export default function StudentsAttendance() {
         </ul>
         <ul className='delete-list'>
           Delete Attendance Entry
-          { allEntries.map(entry => {
+          { allEntries?.map(entry => {
             return(
               <li className='delete-card' key={entry._id}>
-                <button className='delete-time-entry-btn' onClick={deleteEntry(entry._id)}>Delete</button>
+                <button className='delete-time-entry-btn' onClick={() => deleteEntry(entry._id)}>Delete</button>
               </li>
              )    
             })

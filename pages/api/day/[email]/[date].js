@@ -15,7 +15,7 @@ export default async function handler(req, res) {
       
       return res
         .status(200)
-        .json({allEntries: allTimeEntries.entries, totalTime: allTimeEntries.totalTime})
+        .json({allEntries: allTimeEntries?.entries, totalTime: allTimeEntries.totalTime})
       break;
     case 'PATCH':
       return res

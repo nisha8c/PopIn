@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 const moment = require('moment');
-const momentDurationFormatSetup = require('moment-duration-format');
 
 export default function TimeSheet() {
   const { data: session } = useSession()
@@ -53,7 +52,7 @@ export default function TimeSheet() {
       <section className="timesheet-table">
         <ul className='start-time-list'>
           Start Time
-          { allEntries.map(entry => {
+          { allEntries?.map(entry => {
             return(
               <li className='time-card' key={entry._id}>
                 {entry.startTime}
@@ -64,7 +63,7 @@ export default function TimeSheet() {
         </ul>
         <ul className='end-time-list'>
           End Time
-          { allEntries.map(entry => {
+          { allEntries?.map(entry => {
             return(
               <li className='time-card' key={entry._id}>
                 {entry.endTime}
@@ -75,7 +74,7 @@ export default function TimeSheet() {
         </ul>
         <ul className='duration-list'>
           Duration
-          { allEntries.map(entry => {
+          { allEntries?.map(entry => {
             return(
               <li className='time-card' key={entry._id}>
                 {new Date(entry.duration * 1000).toISOString().slice(11, 19)}
