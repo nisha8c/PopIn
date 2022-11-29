@@ -16,21 +16,32 @@ export default function StudentsAttendance() {
   const [date, setDate] = useState(new Date());
   const [totalTime, setTotalTime] = useState(0);
   const [dataFound, setdataFound] = useState(false);
-  
-  const formatedDate = moment(date).format('YYYY-MM-DD')
-
-  const getData = async () => {
-    await fetch(`api/day/${selectedEmail}/${formatedDate}`, { method: 'GET' })
-      .then(response => response.json())
-      .then(timesheetData => {
-        console.log(timesheetData);
-         setAllEntries(timesheetData.allEntries)
-         setTotalTime(timesheetData.totalTime)
-        }
-      )
-    }
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
+    const formatedDate = moment(date).format('YYYY-MM-DD')
+  
+    const getData = async () => {
+      if (!selectedEmail && !refresh)
+        return      
+      await fetch(`api/day/${selectedEmail}/${formatedDate}`, { method: 'GET' })
+        .then(response => {
+          if (!response.ok) {
+            throw Error('Entries not found')
+            }
+            return response.json()
+          }).then(timesheetData => {
+              setdataFound(true)
+              setAllEntries(timesheetData.allEntries)
+              setTotalTime(timesheetData.totalTime)
+          }
+        ).catch(error => {
+          setdataFound(false)
+          console.log(error)
+        })
+      }
+    getData();
+
     const getusers = async () => {
       await fetch(`api/entries`, { method: 'GET' })
         .then(response => response.json())
@@ -39,8 +50,8 @@ export default function StudentsAttendance() {
         })
       }
     getusers();
-    getData();
-  }, [date, selectedEmail]);
+    setRefresh(false);
+  }, [date, selectedEmail, dataFound, refresh]);
 
   const handleCategoryChange = event => {
     setSelectedEmail(event.value);
@@ -49,16 +60,53 @@ export default function StudentsAttendance() {
   const deleteTimesheet = async () => {
     const formatedDate = moment(date).format('YYYY-MM-DD')
     await fetch(`api/day/${selectedEmail}/${formatedDate}`, { method: 'DELETE' })
-      .then(response => response.json())
-      .then(message => console.log(message)) 
+      .then(message => console.log('Timesheet deleted sucessfully')) 
+    setRefresh(true);
   };
 
   const deleteEntry = async (entryid) => {
     fetch(`api/entries/${entryid}`, { method: 'DELETE' } )
-      .then(response => response.json())
-      .then(message => {
-        getData();
-      })
+      .then(message => console.log('Entry deleted sucessfully'));
+    setRefresh(true);
+  };
+
+  const NoData = () => {
+    return(
+      <>
+        <p className='noData'> No records found for this Date </p>
+      </>
+    );
+  };
+
+  const ShowData = () => {
+    return(  
+      <section className="timesheet-table-all">
+        <div className='total-time'>
+           Total Time  : {new Date(totalTime * 1000).toISOString().slice(11, 19)}
+        </div>
+        <table className="timesheet-table_table">
+          <thead className="timesheet-table_head">
+            <tr>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Duration</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          {
+            allEntries?.map(entry => {
+            return (
+              <tr key={entry._id}>
+                <td>{moment(entry.startTime).format('HH:mm:ss')}</td>
+                <td>{moment(entry.endTime).format('HH:mm:ss')}</td>
+                <td>{new Date(entry.duration * 1000).toISOString().slice(11, 19)}</td>
+                <td><button className='delete-time-entry-btn' onClick={() => deleteEntry(entry._id)}>Delete</button></td>
+              </tr>
+            )})
+          }
+        </table>
+      </section>
+    );
   };
 
   return (
@@ -84,35 +132,8 @@ export default function StudentsAttendance() {
           <br></br><br></br>
           <button className="deleteAllBtn" onClick={() => deleteTimesheet()}>Delete Entries for whole day</button>
         </section> <hr />
-        <div className='total-time'>
-           Total Time  : {new Date(totalTime * 1000).toISOString().slice(11, 19)}
-        </div>
       </section>
-
-      <section className="timesheet-table-all">
-        <table className="timesheet-table_table">
-          <thead className="timesheet-table_head">
-            <tr>
-              <th>Start Time</th>
-              <th>End Time</th>
-              <th>Duration</th>
-              <th>Remove</th>
-            </tr>
-          </thead>
-          {
-            allEntries?.map(entry => {
-            return (
-              <tr key={entry._id}>
-                <td>{moment(entry.startTime).format('HH:mm:ss')}</td>
-                <td>{moment(entry.endTime).format('HH:mm:ss')}</td>
-                <td>{new Date(entry.duration * 1000).toISOString().slice(11, 19)}</td>
-                <td><button className='delete-time-entry-btn' onClick={() => deleteEntry(entry._id)}>Delete</button></td>
-              </tr>
-            )})
-          }
-        </table>
-      </section>
-
+      { dataFound ? <ShowData /> : <NoData /> }
       <Footer />
     </>
   )

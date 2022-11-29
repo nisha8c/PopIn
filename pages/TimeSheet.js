@@ -20,14 +20,12 @@ export default function TimeSheet() {
     const formatedDate = moment(date).format('YYYY-MM-DD')
     
     const getData = async () => {
-      if (!userEmail)
-        return
       await fetch(`api/day/${userEmail}/${formatedDate}`, { method: 'GET' })
         .then(response => {
           if (!response.ok) {
             throw Error('Entries not found');
             }
-            return response.json();
+            return response.json()
           }).then(timesheetData => {
             setdataFound(true)
             setAllEntries(timesheetData.allEntries)
@@ -42,7 +40,6 @@ export default function TimeSheet() {
   }, [date, userEmail, totalTime, dataFound]);
   
   const NoData = () => {
-    console.log('No Data')
     return(
       <>
         <p className='noData'> No records found for this Date </p>
@@ -51,7 +48,6 @@ export default function TimeSheet() {
   };
 
   const ShowData = () => {
-    console.log('Show Data')
     return(
       <>
       <section className="timesheet-table-all">
