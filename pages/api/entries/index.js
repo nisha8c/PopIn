@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     case 'GET':
       const allUsers = await Entry.distinct('email');
       return res
-        .status(201)
+        .status(200)
         .json({ allUsersList: allUsers })
       break;
     case 'POST':
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
       break;
     case 'PATCH':
         return res
-          .status(201)
+          .status(204)
           .json({message: 'you have reached PATCH endpoint' })
         break;
   }
