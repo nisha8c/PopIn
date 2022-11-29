@@ -1,6 +1,5 @@
 .timesheet-container {
   margin-top: 11rem;
-  margin-bottom: 5rem;
 }
 
 .deleteAllBtn {
@@ -22,7 +21,6 @@
   cursor: pointer;
   transform: scale(0.9);
 } 
-
 
 .delete-time-entry-btn {
   border-color: #aae6cd;

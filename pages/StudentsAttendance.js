@@ -92,7 +92,7 @@ export default function StudentsAttendance() {
           <thead className="timesheet-table_head">
             <tr>
               <th>Start Time</th>
-              <th>EndTime</th>
+              <th>End Time</th>
               <th>Duration</th>
               <th>Remove</th>
             </tr>

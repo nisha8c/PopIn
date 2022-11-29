@@ -33,60 +33,39 @@ export default function TimeSheet() {
   }, [date, userEmail, totalTime]);
   
   return (
-    <section className="timesheet-page">
-      <Header />
-      <section className="timesheet-container">
-        <h2>Timesheet</h2>
-        <div className="info-container">
-           Name  : {userName}<br></br>
-           Email : {userEmail}
-        </div><br></br>
-        Filter By Date:
-        <DatePicker
-          value={date}
-          selected={date}
-          onChange={date => setDate(date)}
-        />
-        <div className='total-time'>
-           Total Time  : {new Date(totalTime * 1000).toISOString().slice(11, 19)}
-        </div>
-      </section>
-      <section className="timesheet-table">
-        <ul className="start-time-list">
-          Start Time
-          { allEntries?.map(entry => {
-            return(
-              <li className="time-card" key={entry._id}>
-                {entry.startTime}
-              </li>
-             )    
-            })
-          }
-        </ul>
-        <ul className="end-time-list">
-          End Time
-          { allEntries?.map(entry => {
-            return(
-              <li className="time-card" key={entry._id}>
-                {entry.endTime}
-              </li>
-             )    
-            })
-          }
-        </ul>
-        <ul className="duration-list">
-          Duration
-          { allEntries?.map(entry => {
-            return(
-              <li className="time-card" key={entry._id}>
-                {new Date(entry.duration * 1000).toISOString().slice(11, 19)}
-              </li>
-             )    
-            })
-          }
-        </ul>
-      </section>
-      <Footer />
-    </section>
+      <><Header /><section className="timesheet-container">
+      <h2>Timesheet</h2>
+      <div className="info-container">
+        Name: {userName}<br></br>
+        Email: {userEmail}
+      </div><br></br>
+      Filter By Date:
+      <DatePicker
+        value={date}
+        selected={date}
+        onChange={date => setDate(date)} />
+      <div className='total-time'>
+        Total Time: {new Date(totalTime * 1000).toISOString().slice(11, 19)}
+      </div>
+    </section><section className="timesheet-table-all">
+        <table className="timesheet-table_table">
+          <thead className="timesheet-table_head">
+            <tr>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          {allEntries?.map(entry => {
+            return (
+              <tr key={entry._id}>
+                <td>{entry.startTime.split('T')[1].split('.')[0]}</td>
+                <td>{entry.endTime.split('T')[1].split('.')[0]}</td>
+                <td>{new Date(entry.duration * 1000).toISOString().slice(11, 19)}</td>
+              </tr>
+            )
+          })}
+        </table>
+      </section><Footer /></>
   )
 }
