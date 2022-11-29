@@ -83,8 +83,6 @@
   transform: scale(0.9);
 } 
 
-
-
 @media only screen and (max-height: 666px) {
   /* For desktop: */
   .myButtIn {

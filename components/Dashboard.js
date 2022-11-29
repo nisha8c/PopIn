@@ -85,7 +85,8 @@ const Dashboard = () => {
       .then(response => response.json())
       .then(newEntry => {
         const time = newEntry.documentId.endTime.split('T')[1].split(':');
-        const displayOutTime = time[0] + ':' + time[1];
+        const hour = Number(time[0]) + 1;
+        const displayOutTime = String(hour) + ':' + time[1];
         setClockOut(displayOutTime)
         setDocumentId(() => newEntry.documentId)
         setEntryId(() => newEntry.entryId)
