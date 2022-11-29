@@ -101,8 +101,8 @@ export default function StudentsAttendance() {
             allEntries?.map(entry => {
             return (
               <tr key={entry._id}>
-                <td>{entry.startTime.split('T')[1].split('.')[0]}</td>
-                <td>{entry.endTime.split('T')[1].split('.')[0]}</td>
+                <td>{moment(entry.startTime).format('HH:mm:ss')}</td>
+                <td>{moment(entry.endTime).format('HH:mm:ss')}</td>
                 <td>{new Date(entry.duration * 1000).toISOString().slice(11, 19)}</td>
                 <td><button className='delete-time-entry-btn' onClick={() => deleteEntry(entry._id)}>Delete</button></td>
               </tr>
