@@ -73,14 +73,14 @@ export default function StudentsAttendance() {
             value={selectedEmail}
             placeholder="Select Email"
           />    
-          <br></br><br></br>
+          <br></br>
+          <button className="deleteAllBtn" onClick={() => deleteTimesheet()}>Delete Entries for whole day</button><br/><br/>
           Filter By Date:
           <DatePicker
             value={date}
             selected={date}
             onChange={date => setDate(date)}
           />
-          <button className="deleteAllBtn" onClick={() => deleteTimesheet()}>Delete Entries for whole day</button>
         </section> <hr />
         <div className='total-time'>
            Total Time  : {new Date(totalTime * 1000).toISOString().slice(11, 19)}
