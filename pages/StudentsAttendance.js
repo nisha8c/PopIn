@@ -61,9 +61,9 @@ export default function StudentsAttendance() {
     <>
       <Header />
       <section className="timesheet-container">
-        <h2>View Students Attendance</h2>
+        <h2>View All Attendance</h2>
         <section className='filter-container'>
-          Filter by Student-Email:  
+          Filter by Email:  
           <Dropdown
             options={allUsers}
             onChange={handleCategoryChange}

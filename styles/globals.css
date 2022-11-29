@@ -4,3 +4,8 @@ body {
   box-sizing: border-box;
   background-color: #fffaf0;
 }
+
+.dark-mode {
+  background-color: #828786;
+  color: white;
+}

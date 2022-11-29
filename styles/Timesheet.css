@@ -5,7 +5,18 @@
 }
 
 .timesheet-table {
+  width: 650px;
+  height: 1000px;
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 7rem;
+  overflow: scroll;
+}
+
+@media only screen and (min-width: 1000px) {
+  /* For desktop: */
+  .timesheet-table {
+    width: 650px;
+    height: 1000px;
+  }
 }
