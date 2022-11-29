@@ -16,9 +16,20 @@ export default function StudentsAttendance() {
   const [date, setDate] = useState(new Date());
   const [totalTime, setTotalTime] = useState(0);
 
-  useEffect(() => {
-    const formatedDate = moment(date).format('YYYY-MM-DD')
+  const formatedDate = moment(date).format('YYYY-MM-DD')
 
+  const getData = async () => {
+    await fetch(`api/day/${selectedEmail}/${formatedDate}`, { method: 'GET' })
+      .then(response => response.json())
+      .then(timesheetData => {
+        console.log(timesheetData);
+         setAllEntries(timesheetData.allEntries)
+         setTotalTime(timesheetData.totalTime)
+        }
+      )
+    }
+
+  useEffect(() => {
     const getusers = async () => {
       await fetch(`api/entries`, { method: 'GET' })
         .then(response => response.json())
@@ -26,19 +37,9 @@ export default function StudentsAttendance() {
           setAllUsers(result.allUsersList)
         })
       }
-      getusers();
-      
-     const getData = async () => {
-      await fetch(`api/day/${selectedEmail}/${formatedDate}`, { method: 'GET' })
-        .then(response => response.json())
-        .then(timesheetData => {
-           setAllEntries(timesheetData.allEntries)
-           setTotalTime(timesheetData.totalTime)
-          }
-        )
-      }
+    getusers();
     getData();
-  }, [date,selectedEmail]);
+  }, [date, selectedEmail]);
 
   const handleCategoryChange = event => {
     setSelectedEmail(event.value);
@@ -54,7 +55,9 @@ export default function StudentsAttendance() {
   const deleteEntry = async (entryid) => {
     fetch(`api/entries/${entryid}`, { method: 'DELETE' } )
       .then(response => response.json())
-      .then(message => console.log(message))
+      .then(message => {
+        getData();
+      })
   };
 
   return (
@@ -83,52 +86,31 @@ export default function StudentsAttendance() {
            Total Time  : {new Date(totalTime * 1000).toISOString().slice(11, 19)}
         </div>
       </section>
-      <section className="timesheet-table">
-        <ul className='start-time-list'>
-          Start Time
-          { allEntries?.map(entry => {
-            return(
-              <li className='time-card' key={entry._id}>
-                {entry.startTime}
-              </li>
-             )    
-            })
+
+      <section className="timesheet-table-all">
+        <table className="timesheet-table_table">
+          <thead className="timesheet-table_head">
+            <tr>
+              <th>Start Time</th>
+              <th>EndTime</th>
+              <th>Duration</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          {
+            allEntries?.map(entry => {
+            return (
+              <tr key={entry._id}>
+                <td>{entry.startTime.split('T')[1].split('.')[0]}</td>
+                <td>{entry.endTime.split('T')[1].split('.')[0]}</td>
+                <td>{new Date(entry.duration * 1000).toISOString().slice(11, 19)}</td>
+                <td><button className='delete-time-entry-btn' onClick={() => deleteEntry(entry._id)}>Delete</button></td>
+              </tr>
+            )})
           }
-        </ul>
-        <ul className='end-time-list'>
-          End Time
-          { allEntries?.map(entry => {
-            return(
-              <li className='time-card' key={entry._id}>
-                {entry.endTime}
-              </li>
-             )    
-            })
-          }
-        </ul>
-        <ul className='duration-list'>
-          Duration
-          { allEntries?.map(entry => {
-            return(
-              <li className='time-card' key={entry._id}>
-                {new Date(entry.duration * 1000).toISOString().slice(11, 19)}
-              </li>
-             )    
-            })
-          }
-        </ul>
-        <ul className='delete-list'>
-          Delete Attendance Entry
-          { allEntries?.map(entry => {
-            return(
-              <li className='delete-card' key={entry._id}>
-                <button className='delete-time-entry-btn' onClick={() => deleteEntry(entry._id)}>Delete</button>
-              </li>
-             )    
-            })
-          }
-        </ul>
+        </table>
       </section>
+
       <Footer />
     </>
   )

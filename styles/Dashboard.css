@@ -78,9 +78,12 @@
   color: #fffaf0;
 }
 
-.view-dev-Info:hover {
+.view-dev-Info:active {
   cursor: pointer;
-}
+  transform: scale(0.9);
+} 
+
+
 
 @media only screen and (max-height: 666px) {
   /* For desktop: */
@@ -96,6 +99,9 @@
   }
   .view-dev-Info {
     margin: 2.5rem;
+  }
+  .view-dev-Info:hover {
+    cursor: pointer;
   }
 }
 
@@ -132,5 +138,8 @@
     margin: 2rem;
     height: 2rem;
     font-size: 1rem;
+  }
+  .view-dev-Info:hover {
+    cursor: pointer;
   }
 }

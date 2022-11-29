@@ -44,6 +44,20 @@
   transform: scale(0.9);
 } 
 
+.list-header {
+  text-align: center;
+}
+
+.timesheet-table_table {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 5rem;
+}
+
+.timesheet-table_head {
+  text-align: left;
+}
+
 @media only screen and (min-width: 768px) {
   .delete-time-entry-btn:hover {
     cursor: pointer;
