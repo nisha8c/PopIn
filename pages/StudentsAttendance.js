@@ -72,6 +72,7 @@ export default function StudentsAttendance() {
             onChange={handleCategoryChange}
             value={selectedEmail}
             placeholder="Select Email"
+            className="filter-by-email"
           />    
           <br></br>
           <button className="deleteAllBtn" onClick={() => deleteTimesheet()}>Delete Entries for whole day</button><br/><br/>
@@ -94,7 +95,7 @@ export default function StudentsAttendance() {
               <th>Start Time</th>
               <th>End Time</th>
               <th>Duration</th>
-              <th>Remove</th>
+              <th></th>
             </tr>
           </thead>
           {

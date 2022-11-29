@@ -56,6 +56,10 @@
   text-align: left;
 }
 
+.filter-by-email {
+  font-size: 0.8rem;
+}
+
 @media only screen and (min-width: 768px) {
   .delete-time-entry-btn:hover {
     cursor: pointer;
