@@ -20,23 +20,20 @@ export default function SignIn() {
   ]
 
   const handleOAuthSignIn = provider => () => signIn(provider)
-  const handleSubmit = (e) => e.preventDefault()
 
   return (
     <main className='root'>
     <section className="login-page">
       <div className="logo">POP<br/>IN</div>
       <h3>mark your attendance</h3>
-      <form className="form-container" onSubmit={handleSubmit}>
         {
           providers.map(({name, Icon, displayName}) => (
-            <button className="form-button" key={name} type='submit' onClick={handleOAuthSignIn(name)}>
+            <button className="form-button" key={name} type='button' onClick={handleOAuthSignIn(name)}>
               <Icon className="form-icon__service"/>
               <span className="form-button__innerText">Sign in with {displayName}</span>
             </button>
           ))
         }
-      </form>
     </section>
     </main>
   )

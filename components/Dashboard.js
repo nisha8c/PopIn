@@ -35,7 +35,6 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, [time]);
 
-
   const current = new Date();
   // const newTime = `${DateTime.now().hour} + :` ;
   // console.log('DateTime.now() :: ', typeof String(DateTime.now().hour))
@@ -56,26 +55,22 @@ const Dashboard = () => {
       body: JSON.stringify({
         email: session.user.email,
         timesheetDate: `${currentDate}`,
-        startTime: `${current}`           //? wtf ???
+        startTime: `${current}`
       }),
     })
       .then(response => response.json())
       .then(newEntry => {
         setDocumentId(() => newEntry.documentId)
         setEntryId(() => newEntry.entryId)
-
          const time = newEntry.entry.startTime.split('T')[1].split(':')
          const hour = Number(time[0]) + 1;
          const displayInTime = String(hour) + ':' + time[1];
-
-        console.log('displayInTime :::', displayInTime)
         setClockIn(displayInTime)
       });
     toggleInOutButton()
   }
 
   const handleOutBtn = () => {
-    console.log(entryid);
     fetch(`api/entries/${entryid}`, {
       method: 'PATCH',
       body: JSON.stringify({

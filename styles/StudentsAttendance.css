@@ -1,3 +1,13 @@
-.timesheet-container {
+.list-header {
+  text-align: center;
+}
 
+.timesheet-table_table {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 5rem;
+}
+
+.timesheet-table_head {
+  text-align: left;
 }
