@@ -38,7 +38,7 @@ export default function TimeSheet() {
     <>
       <Header />
       <section className="timesheet-container">
-      <h2>Timesheet</h2>
+        <h2>Timesheet</h2>
         
         <div className="info-container">
            Name  : {userName}

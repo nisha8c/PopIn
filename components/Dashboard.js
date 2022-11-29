@@ -42,7 +42,10 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, [time]);
 
+
   const current = new Date();
+  // const newTime = `${DateTime.now().hour} + :` ;
+  // console.log('DateTime.now() :: ', typeof String(DateTime.now().hour))
   const currentDate = moment(current).format('YYYY-MM-DD');
   
   const weekday = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -60,16 +63,20 @@ const Dashboard = () => {
       body: JSON.stringify({
         email: session.user.email,
         timesheetDate: `${currentDate}`,
-        startTime: `${current}`
+        startTime: `${current}`           //? wtf ???
       }),
     })
       .then(response => response.json())
       .then(newEntry => {
         setDocumentId(() => newEntry.documentId)
         setEntryId(() => newEntry.entryId)
-        const time = newEntry.entry.startTime.split('T')[1].split(':')
-        const displayInTime = time[0] + ':' + time[1];
-        setClockIn(displayInTime);
+
+         const time = newEntry.entry.startTime.split('T')[1].split(':')
+         const hour = Number(time[0]) + 1;
+         const displayInTime = String(hour) + ':' + time[1];
+
+        console.log('displayInTime :::', displayInTime)
+        setClockIn(displayInTime)
       });
     toggleInOutButton()
   }
@@ -86,12 +93,8 @@ const Dashboard = () => {
         'Content-type': 'application/json; charset=UTF-8',
       },
     })
-      .then(response => response.json())
-      .then(newEntry => {
-        setDocumentId(() => newEntry.documentId)
-        setEntryId(() => newEntry.entryId)
-        console.log(newEntry)
-      });
+      .then(response => console.log(' out :: ',response.json()))
+      
     toggleInOutButton()
   }
 
@@ -103,6 +106,7 @@ const Dashboard = () => {
       <button onClick={handleInBtn} className="myButtIn">IN</button>
     )
   }
+  //console.log('🧐', time.setZone('Europe/Stockholm').toLocaleString(DateTime.TIME_WITH_SECONDS))
 
   return (
     <div className="dashboard">
