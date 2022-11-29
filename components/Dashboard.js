@@ -102,8 +102,8 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <h1 className="dashboard-clock">{time.setZone('Europe/Stockholm').toLocaleString(DateTime.TIME_WITH_SECONDS)}</h1>
-      <h3 className="dashboard-calendar">{day}, {monthName} {date}</h3>
+      <h2 className="dashboard-clock">{time.setZone('Europe/Stockholm').toLocaleString(DateTime.TIME_WITH_SECONDS)}</h2>
+      <h4 className="dashboard-calendar">{day}, {monthName} {date}</h4>
 
       { getButton(attendanceButton) }
       

@@ -49,32 +49,53 @@
   justify-content: space-around;
   width: 50%;
   margin: auto;
-  
 }
 
 .clock-content {
-  margin : 0;
+  margin: 0;
 }
 
 .clock {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .clock-icon {
-  font-size: 2.5rem;
+  font-size: 1rem;
 }
 
 .view-dev-Info {
   border-color: #aae6cd;
-  margin: 1rem;
-  height: 2.5rem;
+  margin: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  height: 2rem;
   border-radius: 2rem;
   border-width: 0.3rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
   background-color: #859482;
   display: inline-block;
   border: 0px solid #d8d8d8;
   color: #fffaf0;
+}
 
+.view-dev-Info:hover {
+  cursor: pointer;
+}
+
+@media only screen and (max-height: 600px) {
+  /* For desktop: */
+  .myButtIn {
+    width: 6rem;
+    height: 6rem;
+    font-size: 3rem;
+  }
+  .myButtOut {
+    width: 6rem;
+    height: 6rem;
+    font-size: 3rem;
+  }
+  .view-dev-Info {
+    margin: 2.5rem;
+  }
 }

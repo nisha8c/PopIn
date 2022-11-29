@@ -13,11 +13,11 @@ export default function Settings() {
 		push(data.url)
 	}
 
-  const setDarkTheme = () => {
-    console.log('Setting dark theme');
-    document.body.style.backgroundColor = '#828786';
-    document.body.style.color = 'white';
-  };
+  // const setDarkTheme = () => {
+  //   console.log('Setting dark theme');
+  //   document.body.style.backgroundColor = '#828786';
+  //   document.body.style.color = 'white';
+  // };
   
   return (
     <>
@@ -29,10 +29,9 @@ export default function Settings() {
           <Link href="/Profile">
             <button className="settings-button">View Profile</button>
           </Link>
-
-          <button className="settings-button" onClick={setDarkTheme}>
+          {/* <button className="settings-button" onClick={setDarkTheme}>
             Change Theme
-          </button>
+          </button> */}
           <Link href="/About">
             <button className="settings-button">About Us</button>
           </Link>
