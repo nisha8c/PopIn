@@ -33,15 +33,14 @@ export default function TimeSheet() {
   }, [date, userEmail, totalTime]);
   
   return (
-    <>
+    <section className="timesheet-page">
       <Header />
       <section className="timesheet-container">
         <h2>Timesheet</h2>
-        
         <div className="info-container">
            Name  : {userName}<br></br>
            Email : {userEmail}
-        </div>
+        </div><br></br>
         Filter By Date:
         <DatePicker
           value={date}
@@ -88,6 +87,6 @@ export default function TimeSheet() {
         </ul>
       </section>
       <Footer />
-    </>
+    </section>
   )
 }

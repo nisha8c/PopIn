@@ -1,9 +1,6 @@
 import React from 'react'
 import { signIn } from 'next-auth/react'
 import { BsGithub, BsGoogle } from 'react-icons/bs'
-import Image from 'next/image'
-import logo from '../public/FULLlogo.png';
-
 
 export default function SignIn() {
   const providers = [

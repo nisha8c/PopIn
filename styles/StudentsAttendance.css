@@ -1,3 +1,54 @@
 .timesheet-container {
+  margin-top: 11rem;
+  margin-bottom: 5rem;
+}
 
+.deleteAllBtn {
+  border-color: #aae6cd;
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  height: 2rem;
+  border-radius: 2rem;
+  border-width: 0.3rem;
+  font-size: 0.8rem;
+  background-color: #859482;
+  display: inline-block;
+  border: 0px solid #d8d8d8;
+  color: #fffaf0;
+}
+
+.deleteAllBtn:active {
+  cursor: pointer;
+  transform: scale(0.9);
+} 
+
+
+.delete-time-entry-btn {
+  border-color: #aae6cd;
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  height: 2rem;
+  border-radius: 2rem;
+  border-width: 0.3rem;
+  font-size: 0.8rem;
+  background-color: #859482;
+  display: inline-block;
+  border: 0px solid #d8d8d8;
+  color: #fffaf0;
+}
+
+.delete-time-entry-btn:active {
+  cursor: pointer;
+  transform: scale(0.9);
+} 
+
+@media only screen and (min-width: 768px) {
+  .delete-time-entry-btn:hover {
+    cursor: pointer;
+  }
+  .deleteAllBtn:hover {
+    cursor: pointer;
+  } 
 }

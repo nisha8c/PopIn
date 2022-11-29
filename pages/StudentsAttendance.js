@@ -77,7 +77,7 @@ export default function StudentsAttendance() {
             selected={date}
             onChange={date => setDate(date)}
           />
-          <button onClick={() => deleteTimesheet()}>Delete Entries for whole day</button>
+          <button className="deleteAllBtn" onClick={() => deleteTimesheet()}>Delete Entries for whole day</button>
         </section> <hr />
         <div className='total-time'>
            Total Time  : {new Date(totalTime * 1000).toISOString().slice(11, 19)}
