@@ -5,34 +5,22 @@ const moment = require('moment');
 export default async function handler(req, res) {
   mongoose.connect(process.env.MONGODB_URI)
   switch(req.method) {
-    case 'GET' :  
-      const userData = req.url.split('/')[3];
-      const userEmail = userData.split('%5E')[0];
-      const date = userData.split('%5E')[1];
-      
-      const allTimeEntries = await Entry.findOne({ $and:
-        [{ email: userEmail },
-         { timesheetDate: date }]
-      })
-
-      // if ( allTimeEntries.length === 0) {
-      //  return res
-      //    .status(404)
-      //    .json({message: 'No entries found for this date' })
-      //} else {
-          return res
-            .status(200)
-            .json({allEntries: allTimeEntries.entries, totalTime: allTimeEntries.totalTime})
-      //}
+    case 'GET':  
+      return res
+        .status(200)
+        .json({message: 'you have reached GET endpoint'})
       break;
     case 'PATCH':
+      const documentId = req.body.documentid
+      const entryId = req.body.entryid
+
       const entry = await Entry.findOneAndUpdate(
-        { _id: req.body.documentid, 'entries._id': req.body.entryid },
+        { _id: documentId, 'entries._id': entryId },
         { 'entries.$.endTime': req.body.endTime }
       );
 
       const endTime = await Entry.findOne(
-        { _id: req.body.documentid, 'entries._id': req.body.entryid }
+        { _id: documentId, 'entries._id': entryId }
       )
       
       let start_date = moment(endTime.entries[endTime.entries.length-1].startTime, 'HH:mm:ss');
@@ -41,18 +29,40 @@ export default async function handler(req, res) {
       const duration = TimeDuration.asSeconds();
 
       const updateDuration = await Entry.findOneAndUpdate(
-        { _id: req.body.documentid, 'entries._id': req.body.entryid },
+        { _id: documentId, 'entries._id': entryId },
         { 'entries.$.duration': duration }
       );
 
       const document = await Entry.findOneAndUpdate(
-        { _id : req.body.documentid },
+        { _id: documentId },
         [ { $set: { 'totalTime': { $sum: '$entries.duration' } } } ],
         { returnNewDocument: true }
       );
      
          return respond(res, endTime._id, endTime.entries[endTime.entries.length-1] )
       break;
+    case 'DELETE': 
+        const deleteEntryId = req.url.split('/')[3];
+        
+        const getDocumentId = await Entry.findOne(
+          { 'entries._id': deleteEntryId }
+        ) 
+
+        await Entry.findOneAndUpdate(
+            { 'entries._id': deleteEntryId },
+            { $pull: { entries: {'_id': deleteEntryId } } }
+          ) 
+        
+        await Entry.findOneAndUpdate(
+          { _id: getDocumentId._id },
+          [ { $set: { 'totalTime': { $sum: '$entries.duration' } } } ],
+          { returnNewDocument: true }
+        );
+
+        return res
+          .status(202)
+          .json({message: 'You have sucessfully deleted requested Entry' })
+        break;
   }
 }
 
