@@ -105,15 +105,15 @@
 
 @media only screen and (min-width: 768px) {
   .myButtIn {
-    width: 12rem;
-    height: 12rem;
-    font-size: 6rem;
+    width: 10rem;
+    height: 10rem;
+    font-size: 5rem;
   }
 
   .myButtOut {
-    width: 12rem;
-    height: 12rem;
-    font-size: 6rem;
+    width: 10rem;
+    height: 10rem;
+    font-size: 5rem;
   }
 
   .clock-content {

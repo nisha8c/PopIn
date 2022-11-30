@@ -36,8 +36,6 @@ const Dashboard = () => {
   }, [time]);
 
   const current = new Date();
-  // const newTime = `${DateTime.now().hour} + :` ;
-  // console.log('DateTime.now() :: ', typeof String(DateTime.now().hour))
   const currentDate = moment(current).format('YYYY-MM-DD');
   
   const weekday = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -102,7 +100,6 @@ const Dashboard = () => {
       <button onClick={handleInBtn} className="myButtIn">IN</button>
     )
   }
-  //console.log('🧐', time.setZone('Europe/Stockholm').toLocaleString(DateTime.TIME_WITH_SECONDS))
 
   return (
     <div className="dashboard">

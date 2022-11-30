@@ -12,14 +12,12 @@ export default async function handler(req, res) {
         [{ email: email },
          { timesheetDate: timesheetDate }]
       })
-      
-      return res
-        .status(200)
-        .json({allEntries: allTimeEntries?.entries, totalTime: allTimeEntries.totalTime})
+
+      return respond(res, allTimeEntries?.entries, allTimeEntries? allTimeEntries.totalTime:0 )        
       break;
     case 'PATCH':
       return res
-       .status(201)
+       .status(204)
        .json({message: 'you have reached PATCH endpoint'})  
       break;
     case 'DELETE':
@@ -33,9 +31,19 @@ export default async function handler(req, res) {
         )
              
         return res
-          .status(202)
+          .status(204)
           .json({message: 'You have sucessfully deleted requested Document' })
         break;
     }
 }
 
+const respond = (res, entry, total) => {
+  entry?
+  res
+    .status(200)
+    .json({allEntries: entry, totalTime: total})
+  :
+  res
+    .status(204)
+    .json({message: 'Entries not found for this date' })  
+}

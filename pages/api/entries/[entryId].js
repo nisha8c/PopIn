@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   switch(req.method) {
     case 'GET':  
       return res
-        .status(200)
+        .status(204)
         .json({message: 'you have reached GET endpoint'})
       break;
     case 'PATCH':
@@ -60,7 +60,7 @@ export default async function handler(req, res) {
         );
 
         return res
-          .status(202)
+          .status(204)
           .json({message: 'You have sucessfully deleted requested Entry' })
         break;
   }

@@ -26,8 +26,27 @@
 .view-dev-Info:hover {
   cursor: pointer;
 }
+
 .total-time {
   margin-bottom: 0.5rem;
+}
+
+.noData {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.total-time {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.table-title {
+  font-style: italic;
+}
+
+.timesheet-table_table {
+  line-height: 2.5rem;
 }
 
 @media only screen and (min-width: 1000px) {

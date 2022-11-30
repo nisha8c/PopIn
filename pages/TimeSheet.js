@@ -14,26 +14,75 @@ export default function TimeSheet() {
   const [allEntries, setAllEntries] = useState([])
   const [date, setDate] = useState(new Date());
   const [totalTime, setTotalTime] = useState(0);
+  const [dataFound, setdataFound] = useState(false);
 
   useEffect(() => {
     const formatedDate = moment(date).format('YYYY-MM-DD')
     
     const getData = async () => {
-      if (!userEmail || !formatedDate)
-        return
       await fetch(`api/day/${userEmail}/${formatedDate}`, { method: 'GET' })
-        .then(response => response.json())
-        .then(timesheetData => {
-           setAllEntries(timesheetData.allEntries)
-           setTotalTime(timesheetData.totalTime)
+        .then(response => {
+          if (!response.ok) {
+            throw Error('Entries not found');
+            }
+            return response.json()
+          }).then(timesheetData => {
+            setdataFound(true)
+            setAllEntries(timesheetData.allEntries)
+            setTotalTime(timesheetData.totalTime)
           }
-        )
+        ).catch(error => {
+          setdataFound(false)
+          console.log(error)
+        })
       }
     getData();
-  }, [date, userEmail, totalTime]);
+  }, [date, userEmail, totalTime, dataFound]);
   
+  const NoData = () => {
+    return(
+      <>
+        <p className="noData"> No records found for this date </p>
+      </>
+    );
+  };
+
+  const ShowData = () => {
+    return(
+      <>
+      <section className="timesheet-table-all">
+        <div className="total-time">
+          <br/>Total Time: {new Date(totalTime * 1000).toISOString().slice(11, 19)}
+        </div>
+        <table className="timesheet-table_table">
+          <thead className="timesheet-table_head">
+            <tr>
+              <th className="table-title">Start Time</th>
+              <th className="table-title">End Time</th>
+              <th className="table-title">Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+          {
+            allEntries?.map(entry => {
+            return (
+              <tr key={entry._id}>
+                <td>{moment(entry.startTime).format('HH:mm:ss')}</td>
+                <td>{moment(entry.endTime).format('HH:mm:ss') === `01:00:00` ? `--:--` : moment(entry.endTime).format('HH:mm:ss')}</td>
+                <td>{new Date(entry.duration * 1000).toISOString().slice(11, 19)}</td>
+              </tr>          
+            )})
+          }
+          </tbody>
+        </table>
+      </section>        
+      </>
+    );
+  };
+
   return (
-      <><Header /><section className="timesheet-container">
+      <><Header />
+      <section className="timesheet-container">
       <h2>Timesheet</h2>
       <div className="info-container">
         Name: {userName}<br></br>
@@ -44,28 +93,8 @@ export default function TimeSheet() {
         value={date}
         selected={date}
         onChange={date => setDate(date)} />
-      <div className='total-time'>
-        Total Time: {new Date(totalTime * 1000).toISOString().slice(11, 19)}
-      </div>
-    </section><section className="timesheet-table-all">
-        <table className="timesheet-table_table">
-          <thead className="timesheet-table_head">
-            <tr>
-              <th>Start Time</th>
-              <th>End Time</th>
-              <th>Duration</th>
-            </tr>
-          </thead>
-          {allEntries?.map(entry => {
-            return (
-              <tr key={entry._id}>
-                <td>{moment(entry.startTime).format('HH:mm:ss')}</td>
-                <td>{moment(entry.endTime).format('HH:mm:ss')}</td>
-                <td>{new Date(entry.duration * 1000).toISOString().slice(11, 19)}</td>
-              </tr>
-            )
-          })}
-        </table>
-      </section><Footer /></>
+      </section>
+      { dataFound ? <ShowData /> : <NoData /> }
+      <Footer /></>
   )
 }
