@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { DateTime } from 'luxon';
 import { useSession } from "next-auth/react"
 const moment = require('moment');
-const momentDurationFormatSetup = require('moment-duration-format');
 import Link from 'next/link';
 import { BsClock, BsClockFill } from "react-icons/bs";
 
 const Dashboard = () => {
   const { data: session } = useSession()
-  const [time, setTime] = useState(DateTime.now());
+  const [time, setTime] = useState(Date.now());
   const [attendanceButton, setAttendanceButton] = useState(false);
   const [documentid, setDocumentId] = useState(null)
   const [entryid, setEntryId] = useState(null)
@@ -31,7 +29,7 @@ const Dashboard = () => {
   }, [attendanceButton]);
 
   useEffect(() => {
-    const interval = setInterval(() => setTime(DateTime.now()), 1000);
+    const interval = setInterval(() => setTime(Date.now()), 1000);
     return () => clearInterval(interval);
   }, [time]);
 
@@ -60,9 +58,7 @@ const Dashboard = () => {
       .then(newEntry => {
         setDocumentId(() => newEntry.documentId)
         setEntryId(() => newEntry.entryId)
-         const time = newEntry.entry.startTime.split('T')[1].split(':')
-         const hour = Number(time[0]) + 1;
-         const displayInTime = String(hour) + ':' + time[1];
+         const displayInTime = moment(newEntry.entry.startTime).format('HH:mm')
         setClockIn(displayInTime)
       });
     toggleInOutButton()
@@ -82,9 +78,7 @@ const Dashboard = () => {
     })
       .then(response => response.json())
       .then(newEntry => {
-        const time = newEntry.documentId.endTime.split('T')[1].split(':');
-        const hour = Number(time[0]) + 1;
-        const displayOutTime = String(hour) + ':' + time[1];
+        const displayOutTime =  moment(newEntry.entry.startTime).format('HH:mm')
         setClockOut(displayOutTime)
         setDocumentId(() => newEntry.documentId)
         setEntryId(() => newEntry.entryId)
@@ -100,10 +94,10 @@ const Dashboard = () => {
       <button onClick={handleInBtn} className="myButtIn">IN</button>
     )
   }
-
+        
   return (
     <div className="dashboard">
-      <h2 className="dashboard-clock">{time.setZone('Europe/Stockholm').toLocaleString(DateTime.TIME_WITH_SECONDS)}</h2>
+     <h2 className="dashboard-clock">{moment(time).format('hh:mm:ss A')}</h2> 
       <h4 className="dashboard-calendar">{day}, {monthName} {date}</h4>
 
       { getButton(attendanceButton) }
@@ -120,7 +114,6 @@ const Dashboard = () => {
           <p className="clock-content"> Clock Out </p>
         </div>
       </section>
-
       <br></br>
       <section className="student-button">
         {session?.user?.role &&
