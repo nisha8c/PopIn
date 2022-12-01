@@ -13,12 +13,6 @@ export default function Settings() {
 		push(data.url)
 	}
 
-  // const setDarkTheme = () => {
-  //   console.log('Setting dark theme');
-  //   document.body.style.backgroundColor = '#828786';
-  //   document.body.style.color = 'white';
-  // };
-  
   return (
     <>
       <Header />

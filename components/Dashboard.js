@@ -8,25 +8,29 @@ const Dashboard = () => {
   const { data: session } = useSession()
   const [time, setTime] = useState(Date.now());
   const [attendanceButton, setAttendanceButton] = useState(false);
-  const [documentid, setDocumentId] = useState(null)
-  const [entryid, setEntryId] = useState(null)
   const [clockIn, setClockIn] = useState('--:--');
   const [clockOut, setClockOut] = useState('--:--');
+  const [storage, setStorage] = useState([]);
 
-  useEffect(() => {
-    const attendanceButton = JSON.parse(localStorage.getItem('attendanceButton'));
-    if (attendanceButton) {
-      setAttendanceButton(attendanceButton);
+  useState(() => {
+    const storage1 = JSON.parse(localStorage.getItem('storage'));
+    if (storage1) {  
+      setAttendanceButton(storage1.btn);
+      setClockIn(storage1.in);
+      setClockOut(storage1.out);
+      setStorage(storage1);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('clockIn',  JSON.stringify(clockIn))
-  }, [clockIn])
-
-  useEffect(() => {
-    localStorage.setItem('attendanceButton', JSON.stringify(attendanceButton));
-  }, [attendanceButton]);
+    localStorage.clear();
+    const storage2 = {
+      btn: attendanceButton,
+      in: clockIn,
+      out: clockOut
+    }
+    localStorage.setItem('storage', JSON.stringify(storage2));
+  }, [attendanceButton, clockIn, clockOut]);
 
   useEffect(() => {
     const interval = setInterval(() => setTime(Date.now()), 1000);
@@ -46,44 +50,44 @@ const Dashboard = () => {
   const toggleInOutButton = () => setAttendanceButton(() => !attendanceButton)
 
   const handleInBtn = () => {
+    const displayInTime = moment(current).format('HH:mm')
+    setClockIn(displayInTime)
+    setClockOut('--:--')
+
     fetch('api/entries', {
       method: 'POST',
       body: JSON.stringify({
         email: session.user.email,
         timesheetDate: `${currentDate}`,
-        startTime: `${current}`
+        startTime: new Date(),
       }),
     })
-      .then(response => response.json())
-      .then(newEntry => {
-        setDocumentId(() => newEntry.documentId)
-        setEntryId(() => newEntry.entryId)
-         const displayInTime = moment(newEntry.entry.startTime).format('HH:mm')
-        setClockIn(displayInTime)
-      });
-    toggleInOutButton()
+    .then(response => response.json())
+    .then(response => console.log('IN time logged sucessfully'));
+
+    toggleInOutButton();
   }
 
   const handleOutBtn = () => {
-    fetch(`api/entries/${entryid}`, {
+    const displayOutTime = moment(current).format('HH:mm')
+    const currentDate = moment(new Date).format('YYYY-MM-DD');
+    setClockOut(displayOutTime)
+
+    fetch('api/entries', {
       method: 'PATCH',
-      body: JSON.stringify({
-        documentid: documentid,
-        entryid: entryid,
-        endTime: `${current}`
+      body: JSON.stringify({ 
+        email: session.user.email,
+        timesheetDate: `${currentDate}`,
+        endTime: new Date(), 
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
     })
-      .then(response => response.json())
-      .then(newEntry => {
-        const displayOutTime =  moment(newEntry.entry.startTime).format('HH:mm')
-        setClockOut(displayOutTime)
-        setDocumentId(() => newEntry.documentId)
-        setEntryId(() => newEntry.entryId)
-      });
-    toggleInOutButton()
+    .then(response => response.json())
+    .then(response => console.log('OUT time logged sucessfully'));
+
+    toggleInOutButton();
   }
 
   const getButton = status => {

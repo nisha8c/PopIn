@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import Entry from '../../../api/entry';
+const moment = require('moment');
 
 export default async function handler(req, res) {
   mongoose.connect(process.env.MONGODB_URI)
@@ -30,8 +31,6 @@ export default async function handler(req, res) {
             duration: 0,
           }]
         })
-
-        return respond(res, createEntry.entries[0], createEntry._id)
       } else {
         const updateEntry = await Entry.updateOne(
           { _id: existingEntry._id }, 
@@ -44,29 +43,54 @@ export default async function handler(req, res) {
             }
           }
          )
-
-        const updatedEntry = await Entry.findOne({ $and:
-          [{ email: `${newEntry.email}`},
-           { timesheetDate : `${newEntry.timesheetDate}`}
-          ]})
-        
-        return respond(res, updatedEntry.entries[updatedEntry.entries.length-1], existingEntry._id,)
       }
+        
+      return res
+        .status(201)
+        .json({ message: 'You have sucessfully Created Entry' })  
       break;
     case 'PATCH':
-        return res
-          .status(204)
-          .json({message: 'you have reached PATCH endpoint' })
-        break;
-  }
-}
+      const email = req.body.email
+      const timesheetDate = req.body.timesheetDate
+      const endTime = req.body.endTime
+    
+      const entryToOut = await Entry.findOne({ $and:
+        [{ email: `${email}`},
+         { timesheetDate: `${timesheetDate}`}
+        ]})
+          
+      const documentId = entryToOut._id;
+      const entryId = entryToOut.entries[entryToOut.entries.length-1]._id;
+      
+      await Entry.findOneAndUpdate(
+        { _id: documentId, 'entries._id': entryId },
+        { 'entries.$.endTime': endTime }
+      );
+    
+      const updateEndTime = await Entry.findOne(
+        { _id: documentId, 'entries._id': entryId }
+      )
 
-const respond = (res, entry, docID) => {
-  res
-    .status(201)
-    .json({
-      documentId: docID, 
-      entryId: entry._id,
-      entry
-    })
+      const start_time = updateEndTime.entries[updateEndTime.entries.length-1].startTime
+      const end_time = updateEndTime.entries[updateEndTime.entries.length-1].endTime
+      let start_date = moment(start_time, 'HH:mm:ss');
+      let end_date = moment(end_time, 'HH:mm:ss');
+      let TimeDuration = moment.duration(end_date.diff(start_date));
+      const duration = TimeDuration.asSeconds();
+
+      const updateDuration = await Entry.findOneAndUpdate(
+        { _id: documentId, 'entries._id': entryId },
+        { 'entries.$.duration': duration }
+      );
+
+      const document = await Entry.findOneAndUpdate(
+        { _id: documentId },
+        [ { $set: { 'totalTime': { $sum: '$entries.duration' } } } ]
+      );
+      
+      return res
+          .status(201)
+          .json({ message: 'You have sucessfully Updated Entry' })
+      break;       
+  }
 }
