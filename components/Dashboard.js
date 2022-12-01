@@ -63,7 +63,9 @@ const Dashboard = () => {
       }),
     })
     .then(response => response.json())
-    .then(response => console.log('IN time logged sucessfully'));
+    .then(response => {
+
+    });
 
     toggleInOutButton();
   }
@@ -85,7 +87,9 @@ const Dashboard = () => {
       },
     })
     .then(response => response.json())
-    .then(response => console.log('OUT time logged sucessfully'));
+    .then(response => {
+      
+    });
 
     toggleInOutButton();
   }
