@@ -17,7 +17,7 @@ that we developed from scratch using Next.js, react js, mongodb, Next Auth. Scho
 Github: Work done as a group till Dec 01, 2022 is present on following link
 https://github.com/PawelObrzut/Pop-In
 
-- PepperShakers: Nisha Chavan Claudia Pereira Carion Pawel Obrzut Manoj Singh
+- PepperShakers: Nisha Chavan, Claudia Pereira Carion, Pawel Obrzut, Manoj Singh
 
 
 ----------------------------------------------------------------------------------------------
