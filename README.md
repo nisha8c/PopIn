@@ -14,7 +14,7 @@ https://dashing-taffy-506794.netlify.app/
 
 that we developed from scratch using Next.js, react js, mongodb, Next Auth. School of Applied Technology <​/salt>
 
-Github: Work done as a group till Dec 01 is present on following link
+Github: Work done as a group till Dec 01, 2022 is present on following link
 https://github.com/PawelObrzut/Pop-In
 
 - PepperShakers: Nisha Chavan Claudia Pereira Carion Pawel Obrzut Manoj Singh
@@ -22,4 +22,4 @@ https://github.com/PawelObrzut/Pop-In
 
 ----------------------------------------------------------------------------------------------
 
-From Dec 05: Adding my own functionalities and hence created seperate - private repository.
+From Dec 05, 2022: Adding my own functionalities and hence created seperate - private repository.
